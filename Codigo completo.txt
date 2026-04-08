@@ -1,0 +1,1677 @@
+Inicio:
+
+<div style="background-color: #ffffff !important; padding: 1.5rem 0.5rem; min-height: 100vh; overflow-x: hidden;">
+    <style>
+        /* --- CORE DESIGN CORREGIDO --- */
+        .master-container {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #1e293b;
+            max-width: 1140px; /* Ajuste para evitar desbordes */
+            margin: 0 auto;
+            background: #ffffff !important;
+            box-sizing: border-box;
+        }
+
+        /* --- HERO BANNER CINEMÁTICO --- */
+        .main-hero {
+            position: relative;
+            height: 380px;
+            border-radius: 30px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(75, 140, 122, 0.2);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .hero-img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center 25%;
+            transition: transform 10s ease;
+        }
+        .main-hero:hover .hero-img { transform: scale(1.05); }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(90deg,
+                rgba(255, 255, 255, 0.98) 0%,
+                rgba(255, 255, 255, 0.85) 35%,
+                rgba(255, 255, 255, 0) 100%);
+        }
+        .hero-content {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 0 8%; z-index: 10;
+        }
+        .hero-title { font-size: 3.5rem; font-weight: 900; color: #0f172a; line-height: 1; letter-spacing: -2px; margin: 0; }
+        .hero-tag { color: #4B8C7A; font-size: 1.6rem; font-weight: 600; margin-top: 15px; letter-spacing: -0.5px; }
+
+        /* --- EQUIPO MINIMALISTA --- */
+        .team-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 4rem;
+        }
+        .member-pill {
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-radius: 20px;
+            padding: 1.2rem;
+            display: flex; align-items: center; gap: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .member-pill:hover {
+            transform: translateY(-5px);
+            border-color: #4B8C7A;
+            box-shadow: 0 20px 25px -5px rgba(75, 140, 122, 0.1);
+        }
+        .m-avatar {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: #f8fafc; color: #4B8C7A;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.9rem; flex-shrink: 0;
+            border: 1px solid #e2e8f0;
+        }
+        .m-name { font-weight: 800; color: #1e293b; font-size: 1.05rem; display: block; }
+        .m-role { font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* --- HOJA DE RUTA --- */
+        .roadmap-card {
+            background: #ffffff; border-radius: 32px; padding: 3.5rem;
+            border: 1px solid #e2e8f0; margin-bottom: 4rem;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.03);
+        }
+        .roadmap-card h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 3rem; text-align: center; letter-spacing: -1px; }
+        .step-block { display: flex; gap: 2.5rem; margin-bottom: 3.5rem; align-items: flex-start; }
+        .step-num {
+            width: 60px; height: 60px; border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 1.8rem; color: #fff; flex-shrink: 0;
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2);
+        }
+        .step-info h4 { font-size: 1.6rem; font-weight: 800; color: #0f172a; margin: 0 0 10px 0; }
+        .step-info p { font-size: 1.15rem; color: #475569; line-height: 1.7; margin: 0; }
+        .benefit-tag {
+            display: inline-flex; align-items: center; background: #f1f5f9;
+            padding: 6px 14px; border-radius: 10px; margin: 5px;
+            font-size: 0.95rem; font-weight: 600; color: #334155;
+        }
+
+        /* --- GRILLA DE 4 RECURSOS (2x2) --- */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+        @media (max-width: 800px) { .resources-grid { grid-template-columns: 1fr; } }
+        
+        .r-card {
+            background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0;
+            padding: 2.5rem; position: relative; overflow: hidden;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            min-height: 200px;
+        }
+        .r-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); }
+        .r-text { position: relative; z-index: 5; max-width: 65%; }
+        .r-badge { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 8px; display: inline-block; margin-bottom: 1rem; }
+        .r-title { font-size: 1.6rem; font-weight: 800; margin: 0 0 8px 0; color: #0f172a; }
+        .r-desc { color: #64748b; font-size: 1.05rem; margin: 0; line-height: 1.4; }
+        .r-img {
+            position: absolute; top: 50%; right: 1.5rem;
+            transform: translateY(-50%); width: 130px;
+            mix-blend-mode: multiply; filter: contrast(1.1);
+            transition: 0.5s ease;
+        }
+        .r-card:hover .r-img { transform: translateY(-50%) scale(1.15) rotate(5deg); }
+
+        /* Colores por tarjeta */
+        .c-teal:hover { border-color: #4B8C7A; } .c-teal .r-badge { background: #EBF3F1; color: #4B8C7A; }
+        .c-blue:hover { border-color: #0EA5E9; } .c-blue .r-badge { background: #E0F2FE; color: #0EA5E9; }
+        .c-orange:hover { border-color: #F97316; } .c-orange .r-badge { background: #FFF7ED; color: #F97316; }
+        .c-red:hover { border-color: #DC2626; } .c-red .r-badge { background: #FEE2E2; color: #DC2626; }
+
+        /* --- BARRA DE CONTACTO GLASS --- */
+        .contact-footer {
+            background: #ffffff; border: 2px solid #f1f5f9; border-radius: 24px;
+            padding: 1.5rem 2.5rem; display: flex; align-items: center; justify-content: space-between;
+            transition: 0.3s; cursor: pointer;
+        }
+        .contact-footer:hover { transform: scale(1.01); border-color: #7c3aed; box-shadow: 0 10px 30px rgba(124, 58, 237, 0.1); }
+        .c-icon-box {
+            width: 50px; height: 50px; background: #f5f3ff; color: #7c3aed;
+            border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-right: 1.5rem;
+        }
+        .c-btn { background: #7c3aed; color: #fff; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 700; font-size: 1rem; }
+
+        /* Toast */
+        #t-msg { position: fixed; bottom: 30px; right: 30px; background: #10b981; color: #fff; padding: 12px 24px; border-radius: 12px; display: none; z-index: 1000; font-weight: 600; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    </style>
+
+    <div class="master-container">
+        <div class="main-hero">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" class="hero-img">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">Práctica Profesional<br>Supervisada 2026</h1>
+                <span class="hero-tag">Facultad de Psicología y Ciencias Sociales · UFLO</span>
+            </div>
+        </div>
+
+        <div class="team-row">
+            <div class="member-pill">
+                <div class="m-avatar">BR</div>
+                <div><span class="m-name">Blas Rivera</span><span class="m-role" style="color:#4B8C7A">Coord. General</span></div>
+            </div>
+            <div class="member-pill">
+                <div class="m-avatar">SE</div>
+                <div><span class="m-name">Selva Estrella</span><span class="m-role">Área Clínica</span></div>
+            </div>
+            <div class="member-pill">
+                <div class="m-avatar">FP</div>
+                <div><span class="m-name">Franco Pedraza</span><span class="m-role">Área Educacional</span></div>
+            </div>
+            <div class="member-pill">
+                <div class="m-avatar">CR</div>
+                <div><span class="m-name">Cynthia Rossi</span><span class="m-role">Laboral / Social</span></div>
+            </div>
+        </div>
+
+        <div class="roadmap-card">
+            <h2>Tu Punto de Partida</h2>
+            <div class="step-block">
+                <div class="step-num" style="background:#4B8C7A">1</div>
+                <div class="step-info">
+                    <h4>Paso Esencial: Leer las FAQ</h4>
+                    <p>Resuelve el 90% de las dudas. Antes de enviar una consulta, revisa este espacio. Incluye el <b>enlace directo al grupo de WhatsApp</b> oficial.</p>
+                </div>
+            </div>
+            <div class="step-block">
+                <div class="step-num" style="background:#1e293b">2</div>
+                <div class="step-info">
+                    <h4>Adopta un Rol Proactivo</h4>
+                    <p>La búsqueda activa de tus propios espacios es la estrategia más eficaz. Tomar la iniciativa te garantiza:</p>
+                    <div style="margin-top:15px">
+                        <span class="benefit-tag">✓ Asegurar tu cupo</span>
+                        <span class="benefit-tag">✓ Mayor afinidad</span>
+                        <span class="benefit-tag">✓ Finalizar antes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resources-grid">
+            <div class="r-card c-teal" onclick="window.open('https://campus.uflo.edu.ar/course/view.php?id=3615&section=1')">
+                <div class="r-text">
+                    <span class="r-badge">Recursos</span>
+                    <h3 class="r-title">Descargas</h3>
+                    <p class="r-desc">Guías, plantillas y documentos oficiales.</p>
+                </div>
+                <img src="https://campus.uflo.edu.ar/pluginfile.php/291809/course/section/50889/Thumb_institucional%20%281%29.png" class="r-img">
+            </div>
+            <div class="r-card c-blue" onclick="window.open('https://campus.uflo.edu.ar/course/view.php?id=3615&section=2')">
+                <div class="r-text">
+                    <span class="r-badge">Ayuda</span>
+                    <h3 class="r-title">Preguntas Frecuentes</h3>
+                    <p class="r-desc">Respuestas inmediatas a dudas comunes.</p>
+                </div>
+                <img src="https://campus.uflo.edu.ar/pluginfile.php/291809/course/section/50889/faq.jpg" class="r-img">
+            </div>
+            <div class="r-card c-orange" onclick="window.open('https://campus.uflo.edu.ar/course/view.php?id=3615&section=3')">
+                <div class="r-text">
+                    <span class="r-badge">Evaluación</span>
+                    <h3 class="r-title">Entrega Informes</h3>
+                    <p class="r-desc">Espacio para subir tus entregas parciales y finales.</p>
+                </div>
+                <img src="https://campus.uflo.edu.ar/pluginfile.php/291809/course/section/50889/informes.jpg" class="r-img">
+            </div>
+            <div class="r-card c-red" onclick="window.open('https://pps-psico.github.io')">
+                <div class="r-text">
+                    <span class="r-badge">Gestión</span>
+                    <h3 class="r-title">Mi Panel</h3>
+                    <p class="r-desc">Inscripciones, seguimiento de horas y solicitudes.</p>
+                </div>
+                <img src="https://campus.uflo.edu.ar/pluginfile.php/291809/course/section/50889/pps%20antiguas%20%281%29.jpg" class="r-img">
+            </div>
+        </div>
+
+        <div class="contact-footer" onclick="copyEmail()">
+            <div style="display:flex; align-items:center">
+                <div class="c-icon-box">✉️</div>
+                <div>
+                    <h4 style="margin:0; font-size:1.2rem; color:#0f172a">¿Necesitas soporte personalizado?</h4>
+                    <p style="margin:0; color:#64748b">Click aquí para copiar el correo de coordinación.</p>
+                </div>
+            </div>
+            <button class="c-btn">Copiar Correo</button>
+        </div>
+    </div>
+
+    <div id="t-msg">✅ Correo copiado al portapapeles</div>
+    <script>
+        function copyEmail() {
+            navigator.clipboard.writeText("blas.rivera@uflouniversidad.edu.ar").then(() => {
+                const toast = document.getElementById('t-msg');
+                toast.style.display = 'block';
+                setTimeout(() => toast.style.display = 'none', 3000);
+            });
+        }
+    </script>
+</div>
+
+DESCARGAS:
+
+<style>
+  /* --- CONTENEDOR PRINCIPAL --- */
+  .downloads-section-sq {
+    padding: 5rem 0;
+    background-color: transparent; /* Se adapta al fondo de la página */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* --- CABECERA DE SECCIÓN PREMIUM --- */
+  .dl-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .dl-header h2 {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+  }
+  .dl-header span { color: #10b981; }
+  .dl-divider {
+    width: 50px; height: 4px; 
+    background: #10b981; 
+    margin: 0 auto; 
+    border-radius: 4px;
+  }
+
+  /* --- TARJETA CUADRADA PREMIUM --- */
+  .card-dl-sq {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 2rem 1.8rem;
+    position: relative;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 4px 20px -5px rgba(15, 23, 42, 0.03);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  /* --- ZONA DEL ICONO --- */
+  .dl-icon-sq-box {
+    width: 54px; height: 54px;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: transform 0.4s ease;
+  }
+  .dl-icon-sq-box svg {
+    width: 26px; height: 26px;
+    stroke-width: 2;
+    transition: all 0.3s ease;
+  }
+
+  /* --- TIPOGRAFÍA --- */
+  .badge-dl-sq {
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 0.5rem; display: block;
+    color: #94a3b8;
+  }
+  .dl-sq-title { 
+    font-size: 1.3rem; font-weight: 800; color: #0f172a; 
+    margin: 0 0 0.5rem 0; letter-spacing: -0.5px; line-height: 1.2;
+  }
+  .dl-sq-desc { 
+    font-size: 0.95rem; color: #64748b; line-height: 1.5; 
+    margin: 0 0 1.5rem 0; flex-grow: 1;
+  }
+
+  /* --- BOTÓN DE DESCARGA MINI --- */
+  .dl-sq-action {
+    display: flex; justify-content: flex-end; align-items: flex-end;
+    margin-top: auto;
+    border-top: 1px solid #f8fafc;
+    padding-top: 1rem;
+  }
+  .dl-btn-mini {
+    width: 38px; height: 38px;
+    border-radius: 12px;
+    background: #f8fafc;
+    color: #94a3b8;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s ease;
+  }
+  .dl-btn-mini svg { width: 18px; height: 18px; transition: transform 0.3s; }
+
+  /* --- HOVER Y ANIMACIONES --- */
+  .card-dl-sq:hover { 
+    transform: translateY(-8px); 
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08); 
+  }
+  .card-dl-sq:hover .dl-icon-sq-box { transform: scale(1.1) rotate(-5deg); }
+  .card-dl-sq:hover .dl-btn-mini svg { transform: translateY(2px); /* Efecto de flecha bajando */ }
+
+  /* --- TEMAS SEMÁNTICOS (Mejor UX visual) --- */
+
+  /* EXCEL (Verde Esmeralda) */
+  .t-excel .dl-icon-sq-box { background: #ecfdf5; color: #10b981; }
+  .t-excel:hover { border-color: #a7f3d0; }
+  .t-excel:hover .dl-btn-mini { background: #10b981; color: white; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
+
+  /* WORD (Azul) */
+  .t-word .dl-icon-sq-box { background: #eff6ff; color: #3b82f6; }
+  .t-word:hover { border-color: #bfdbfe; }
+  .t-word:hover .dl-btn-mini { background: #3b82f6; color: white; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3); }
+
+  /* PDF (Rojo/Rosa) */
+  .t-pdf .dl-icon-sq-box { background: #fff1f2; color: #f43f5e; }
+  .t-pdf:hover { border-color: #fecdd3; }
+  .t-pdf:hover .dl-btn-mini { background: #f43f5e; color: white; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.3); }
+
+  /* NORMATIVA (Gris Pizarra) */
+  .t-doc .dl-icon-sq-box { background: #f1f5f9; color: #475569; }
+  .t-doc:hover { border-color: #cbd5e1; }
+  .t-doc:hover .dl-btn-mini { background: #475569; color: white; box-shadow: 0 4px 10px rgba(71, 85, 105, 0.3); }
+
+  /* --- ETIQUETA NUEVO (Estilo UI Pulsante) --- */
+  .badge-new-sq {
+      position: absolute; top: 20px; right: 20px;
+      background: #ecfdf5; color: #059669;
+      font-size: 0.65rem; font-weight: 800;
+      padding: 4px 10px; border-radius: 99px;
+      display: flex; align-items: center; gap: 5px;
+      border: 1px solid #d1fae5;
+  }
+  .dot-pulse {
+      width: 6px; height: 6px; background: #10b981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      70% { box-shadow: 0 0 0 4px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  }
+
+</style>
+
+<div class="downloads-section-sq">
+  <div class="container px-lg-4" style="max-width: 1140px; margin: 0 auto;"> 
+    
+    <!-- Cabecera -->
+    <div class="dl-header">
+      <h2>Material de <span>Descarga</span></h2>
+      <div class="dl-divider"></div>
+    </div>
+
+    <div class="row g-4"> 
+      <!-- 1. EXCEL -->
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card-dl-sq t-excel" onclick="window.open('https://campus.uflo.edu.ar/draftfile.php/650961/user/draft/261574238/Planilla_Seguimiento%20%281%29.xlsx')">
+          <div class="badge-new-sq">
+            <div class="dot-pulse"></div> NUEVO
+          </div>
+          
+          <div class="dl-icon-sq-box">
+              <!-- Icono Tabla/Grid -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+          </div>
+          
+          <div>
+            <span class="badge-dl-sq">Excel</span>
+            <h3 class="dl-sq-title">Seguimiento Hs</h3>
+            <p class="dl-sq-desc">Planilla oficial para el registro detallado.</p>
+          </div>
+          
+          <div class="dl-sq-action">
+            <div class="dl-btn-mini">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. WORD -->
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card-dl-sq t-word" onclick="window.open('https://campus.uflo.edu.ar/draftfile.php/650961/user/draft/261574238/PlanillaAsistencia_vacia.doc')">
+          
+          <div class="dl-icon-sq-box">
+              <!-- Icono Documento de Texto -->
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          </div>
+          
+          <div>
+            <span class="badge-dl-sq">Word</span>
+            <h3 class="dl-sq-title">Asistencia</h3>
+            <p class="dl-sq-desc">Registro presencial con firma en sede.</p>
+          </div>
+          
+          <div class="dl-sq-action">
+            <div class="dl-btn-mini">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. PDF -->
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card-dl-sq t-pdf" onclick="window.open('https://campus.uflo.edu.ar/draftfile.php/650961/user/draft/261574238/Guia%20para%20la%20elaboraci%C3%B3n%20Informe%20de%20PPS%20%281%29.pdf')">
+          
+          <div class="dl-icon-sq-box">
+              <!-- Icono Guía/Libro -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+          </div>
+          
+          <div>
+            <span class="badge-dl-sq">PDF</span>
+            <h3 class="dl-sq-title">Guía Informes</h3>
+            <p class="dl-sq-desc">Pautas de elaboración académica.</p>
+          </div>
+          
+          <div class="dl-sq-action">
+            <div class="dl-btn-mini">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. NORMATIVA -->
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card-dl-sq t-doc" onclick="window.open('https://campus.uflo.edu.ar/draftfile.php/650961/user/draft/261574238/UFLO%20Reglamento%20de%20PPS%20%282%29.pdf')">
+          
+          <div class="dl-icon-sq-box">
+              <!-- Icono Institucional/Reglamento -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          </div>
+          
+          <div>
+            <span class="badge-dl-sq">Normativa</span>
+            <h3 class="dl-sq-title">Reglamento</h3>
+            <p class="dl-sq-desc">Marco oficial y resoluciones PPS.</p>
+          </div>
+          
+          <div class="dl-sq-action">
+            <div class="dl-btn-mini">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+FAQ
+
+<!-- =========================================================================================
+     SISTEMA INTEGRAL DE AYUDA PPS (GUÍA RÁPIDA + FAQ) - VERSIÓN FINAL DEFINITIVA
+========================================================================================== -->
+<div class="container-fluid my-5">
+    <!-- =================================================================================
+         PARTE 1: GUÍA RÁPIDA DE INICIO
+    ================================================================================== -->
+    <div class="container px-lg-5" style="max-width: 1100px; margin: 0 auto;">
+        <!-- ENCABEZADO SUPERIOR -->
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <span style="background-color: #EBF3F1; color: #4B8C7A; padding: 0.5rem 1.2rem; border-radius: 99px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; display: inline-block; margin-bottom: 1.5rem; border: 1px solid rgba(75, 140, 122, 0.2);">Centro de Ayuda</span>
+            <h1 style="color: #1e293b; font-weight: 800; font-size: 3.5rem; letter-spacing: -2px; line-height: 1.1; margin-bottom: 1rem;">
+                Guía Completa de <span style="color: #4B8C7A;">PPS</span>
+            </h1>
+            <p style="color: #64748b; font-size: 1.25rem; max-width: 700px; margin: 0 auto; line-height: 1.6;">
+                Tu fuente central para resolver todas las dudas sobre las Prácticas Profesionales Supervisadas.
+            </p>
+        </div>
+        <!-- CONTENEDOR PRINCIPAL BLANCO (GUÍA) -->
+        <div id="guide-container" style="background: #ffffff; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(148, 163, 184, 0.15); border: 1px solid #f1f5f9; padding: 3rem;">
+            
+    <!-- TARJETA INTRODUCTORIA (ROCKET) -->
+    <div style="background: linear-gradient(to right, #ffffff, #f8fafc); border: 1px solid #e2e8f0; border-left: 6px solid #4B8C7A; border-radius: 16px; padding: 2rem 2.5rem; margin-bottom: 4rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.03); display: flex; align-items: center; gap: 1.5rem; position: relative; overflow: hidden;">
+        <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 100px; background: linear-gradient(90deg, transparent, rgba(75, 140, 122, 0.03));"></div>
+        <div style="flex-shrink: 0; font-size: 3rem;">🚀</div>
+        <div>
+            <h2 style="color: #334155; font-size: 1.6rem; font-weight: 800; margin: 0 0 0.5rem 0;">Guía Rápida de Inicio: Lo Esencial</h2>
+            <p style="color: #64748b; font-size: 1.1rem; margin: 0; line-height: 1.5;">Tu checklist esencial con los 5 puntos clave para comenzar tu recorrido y mantener el control.</p>
+        </div>
+    </div>
+    
+        <div style="display: flex; gap: 2rem; align-items: flex-start;">
+            <div style="flex-shrink: 0; width: 52px; height: 52px; background: #ffffff; border: 2px solid #4B8C7A; color: #4B8C7A; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">1</div>
+            <div style="width: 100%;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
+                    <h3 style="color: #1e293b; font-size: 1.5rem; font-weight: 700; margin: 0;">Dónde Empezar: Inscripción y Acceso</h3>
+                    
+                </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div style="padding: 0 0 0 1rem; border-left: 3px solid #cbd5e1;">
+                        <strong style="color: #334155; display: block; font-size: 1.1rem; margin-bottom: 0.3rem;">Creación de Cuenta</strong>
+                        <p style="color: #475569; margin: 0; line-height: 1.5;">Debes crear tu usuario en Mi Panel utilizando tu legajo para empezar.</p>
+                    </div>
+                
+                    <div style="padding: 0 0 0 1rem; border-left: 3px solid #cbd5e1;">
+                        <strong style="color: #334155; display: block; font-size: 1.1rem; margin-bottom: 0.3rem;">Punto de Partida</strong>
+                        <p style="color: #475569; margin: 0; line-height: 1.5;">Toda inscripción es a través de Mi Panel (sección de convocatorias).</p>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem; background-color: #F8FAFC; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1.2rem 1.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <strong style="color: #334155; font-size: 1.05rem; display: block; margin-bottom: 0.3rem;">Mantente Informado</strong>
+                        <p style="color: #64748b; margin: 0; font-size: 0.95rem; line-height: 1.4;">Únete al grupo de difusión para recibir avisos inmediatos.</p>
+                    </div>
+                    <a href="https://chat.whatsapp.com/Ig0GHAnHOOJ504KHMh57Le" target="_blank" style="background-color: #2ca366; color: white; padding: 0.7rem 1.4rem; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: all 0.2s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592z"></path>
+                        </svg>
+                        Grupo de Novedades
+                    </a>
+                </div>
+            </div></div><div style="height: 1px; width: 100%; background: linear-gradient(90deg, transparent, #e2e8f0, transparent); margin: 3.5rem 0;"></div>
+        <div style="display: flex; gap: 2rem; align-items: flex-start;">
+            <div style="flex-shrink: 0; width: 52px; height: 52px; background: #ffffff; border: 2px solid #DC2626; color: #DC2626; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">2</div>
+            <div style="width: 100%;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
+                    <h3 style="color: #1e293b; font-size: 1.5rem; font-weight: 700; margin: 0;">Asistencia y Compromiso</h3>
+                    <span style="background-color: #FEE2E2; color: #991B1B; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Regla de Oro</span>
+                </div>
+        <p style="color: #475569; font-size: 1.15rem; margin-bottom: 1.5rem; line-height: 1.7;">Debés cumplir con al menos el <strong>80% de asistencia</strong> para aprobar la práctica.</p>
+                <div style="background-color: #FEF2F2; border: 1px solid rgba(220, 38, 38, 0.2); padding: 1.2rem 1.5rem; border-radius: 12px;">
+                    <div style="display: flex; gap: 10px;">
+                        <span style="font-size: 1.2rem;">⚠️</span>
+                        <p style="color: #991B1B; margin: 0; line-height: 1.6; font-size: 1rem;">Es obligatorio justificar su ausencia y notificar previamente a la institución: <strong>La omisión de esta notificación</strong> es el motivo más frecuente para la <span style="text-decoration: underline;">suspensión de las PPS</span>.</p>
+                    </div>
+                </div>
+            </div></div><div style="height: 1px; width: 100%; background: linear-gradient(90deg, transparent, #e2e8f0, transparent); margin: 3.5rem 0;"></div>
+        <div style="display: flex; gap: 2rem; align-items: flex-start;">
+            <div style="flex-shrink: 0; width: 52px; height: 52px; background: #ffffff; border: 2px solid #0284C7; color: #0284C7; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">3</div>
+            <div style="width: 100%;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
+                    <h3 style="color: #1e293b; font-size: 1.5rem; font-weight: 700; margin: 0;">Sobre la Documentación y Seguimiento</h3>
+                    
+                </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div onclick="window.open('https://pps-psico.github.io', '_blank')" 
+                         style="border: 1px solid rgb(226, 232, 240); border-radius: 16px; padding: 1.5rem; background: rgb(255, 255, 255); cursor: pointer; transition: 0.3s; position: relative;"
+                         onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px -5px rgba(0,0,0,0.1)'; this.style.borderColor='#7DD3FC';"
+                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'; this.style.borderColor='#e2e8f0';">
+                        <div style="position: absolute; top: 1.5rem; right: 1.5rem; color: #cbd5e1;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></div>
+                        <div style="color: #64748b; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.5px;">Herramienta #1</div>
+                        <strong style="color: #0284C7; font-size: 1.3rem; display: block; margin-bottom: 0.5rem;">Mi Panel</strong>
+                        <p style="color: #475569; margin: 0; font-size: 0.95rem; line-height: 1.5;">Inscripción y gestión. <em>Referencial.</em></p>
+                    </div>
+                
+                    <div onclick="window.open('https://campus.uflo.edu.ar/draftfile.php/650961/user/draft/783661186/Planilla_Seguimiento%20%281%29.xlsx', '_blank')" 
+                         style="border: 1px solid rgb(226, 232, 240); border-radius: 16px; padding: 1.5rem; background: rgb(255, 255, 255); cursor: pointer; transition: 0.3s; position: relative;"
+                         onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px -5px rgba(0,0,0,0.1)'; this.style.borderColor='#86EFAC';"
+                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'; this.style.borderColor='#e2e8f0';">
+                        <div style="position: absolute; top: 1.5rem; right: 1.5rem; color: #cbd5e1;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+                        <div style="color: #64748b; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.5px;">Herramienta #2</div>
+                        <strong style="color: #16A34A; font-size: 1.3rem; display: block; margin-bottom: 0.5rem;">Excel de Seguimiento</strong>
+                        <p style="color: #475569; margin: 0; font-size: 0.95rem; line-height: 1.5;">Tu control exacto de horas.</p>
+                    </div>
+                </div>
+                <div style="border: 1px dashed #93C5FD; background-color: #F0F9FF; border-radius: 12px; padding: 1.2rem 1.5rem;">
+                    <p style="color: #0c4a6e; margin: 0; font-size: 1rem; line-height: 1.6;">La <strong>Planilla de Asistencia firmada</strong> o el <strong>Informe Final aprobado</strong> (en casos virtuales) son los ÚNICOS documentos OFICIALES para la acreditación final.</p>
+                </div>
+            </div></div><div style="height: 1px; width: 100%; background: linear-gradient(90deg, transparent, #e2e8f0, transparent); margin: 3.5rem 0;"></div>
+        <div style="display: flex; gap: 2rem; align-items: flex-start;">
+            <div style="flex-shrink: 0; width: 52px; height: 52px; background: #ffffff; border: 2px solid #EA580C; color: #EA580C; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">4</div>
+            <div style="width: 100%;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
+                    <h3 style="color: #1e293b; font-size: 1.5rem; font-weight: 700; margin: 0;">Cierre: Entregas y Plazos</h3>
+                    
+                </div>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1.2rem;">
+                    <li style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <span style="color: #EA580C; margin-top: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>
+                        <div>
+                            <strong style="color: #334155; display: block; font-size: 1.1rem;">Entrega de Informes</strong>
+                            <span style="color: #475569; font-size: 1.05rem; line-height: 1.5;">Tienes <strong>30 días</strong> luego de finalizada la PPS para subir el informe al Campus.</span>
+                        </div>
+                    </li>
+                
+                    <li style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <span style="color: #EA580C; margin-top: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>
+                        <div>
+                            <strong style="color: #334155; display: block; font-size: 1.1rem;">Corrección Docente</strong>
+                            <span style="color: #475569; font-size: 1.05rem; line-height: 1.5;">El docente tiene <strong>30 días hábiles</strong> para corregir.</span>
+                        </div>
+                    </li>
+                
+                    <li style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <span style="color: #EA580C; margin-top: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>
+                        <div>
+                            <strong style="color: #334155; display: block; font-size: 1.1rem;">Solicitá Acreditación</strong>
+                            <span style="color: #475569; font-size: 1.05rem; line-height: 1.5;">Cuando cumplas todos los requisitos, solicitás la acreditación final desde Mi Panel.</span>
+                        </div>
+                    </li>
+                </ul></div></div><div style="height: 1px; width: 100%; background: linear-gradient(90deg, transparent, #e2e8f0, transparent); margin: 3.5rem 0;"></div>
+        <div style="display: flex; gap: 2rem; align-items: flex-start;">
+            <div style="flex-shrink: 0; width: 52px; height: 52px; background: #ffffff; border: 2px solid #7C3AED; color: #7C3AED; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">5</div>
+            <div style="width: 100%;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
+                    <h3 style="color: #1e293b; font-size: 1.5rem; font-weight: 700; margin: 0;">Comunicación y Consultas</h3>
+                    
+                </div>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div style="background-color: #F8FAFC; border-left: 4px solid #7C3AED; padding: 1.2rem; border-radius: 0 8px 8px 0;">
+                        <strong style="color: #334155; font-size: 1.05rem;">Canal Único</strong>
+                        <p style="color: #475569; margin: 0.2rem 0 0 0; font-size: 1rem;">Todas las consultas se realizan exclusivamente por <strong>correo electrónico</strong>.</p>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem; background-color: #FEF2F2; border: 1px solid #FCA5A5; color: #991B1B; padding: 1rem 1.5rem; border-radius: 10px; font-size: 0.95rem;">
+                    <strong>🚫 Canales NO Habilitados:</strong> El WhatsApp y el chat del Campus Virtual NO son canales de respuesta para consultas individuales.
+                </div>
+            </div></div>
+        </div>
+    </div>
+    <!-- =================================================================================
+         PARTE 2: PREGUNTAS FRECUENTES (FAQ INTERACTIVO)
+    ================================================================================== -->
+    <div class="container px-lg-5" style="max-width: 1100px; margin: 0 auto; padding-bottom: 3rem;">
+        <!-- TÍTULO DE LA SECCIÓN FAQ -->
+        <div style="text-align: center; margin-top: 5rem; margin-bottom: 3rem;">
+            <div style="inline-block; width: 60px; height: 4px; background: linear-gradient(90deg, #4B8C7A, #2E86C1); border-radius: 2px; margin-bottom: 1.5rem;"></div>
+            <h2 style="color: #334155; font-weight: 800; font-size: 2.8rem; letter-spacing: -1px; margin-bottom: 1rem;">
+                Preguntas y <span style="color: #4B8C7A;">Respuestas</span>
+            </h2>
+            <p style="color: #64748b; font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
+                Seleccionamos las consultas más habituales para ahorrarte tiempo.
+            </p>
+        </div>
+        <!-- CONTENEDOR DE PREGUNTAS -->
+        <div id="faq-container">
+            
+        <div style="margin-bottom: 4rem;">
+            <div style="margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
+                <div style="background: #ffffff; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B8C7A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg></div>
+                <div>
+                    <h2 style="color: #1e293b; font-size: 1.5rem; font-weight: 700; margin: 0; letter-spacing: -0.5px;">1. Inscripción y Selección</h2>
+                    <p style="color: #64748b; font-size: 1rem; margin: 0.2rem 0 0 0;">Preguntas sobre procesos específicos de postulación.</p>
+                </div>
+            </div>
+        
+            <div id="faq-0-0" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-0-0')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">01.</span> ¿Cuál es la frecuencia de lanzamiento de convocatorias?
+                    </div>
+                    <div id="icon-faq-0-0" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-0-0" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Las convocatorias para PPS se lanzan de forma periódica a lo largo del año. Te recomendamos estar atento a los anuncios en el aula virtual y en el grupo de WhatsApp para no perderte ninguna oportunidad.</div>
+                </div>
+            </div>
+            
+            <div id="faq-0-1" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-0-1')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">02.</span> ¿Cuáles son los criterios para la selección de estudiantes?
+                    </div>
+                    <div id="icon-faq-0-1" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-0-1" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">En caso de que el número de inscriptos supere el cupo disponible, los criterios de selección se aplicarán en el siguiente orden de importancia: <ol style="margin-top: 1rem; padding-left: 1.5rem; color: #475569;"> <li style="margin-bottom: 0.5rem;"><strong>Cantidad de horas realizadas:</strong> Este es el criterio principal.</li> <li style="margin-bottom: 0.5rem;"><strong>Situación académica:</strong> Avance en la carrera.</li> <li style="margin-bottom: 0.5rem;"><strong>Otros factores:</strong> Orientación, disponibilidad, movilidad, etc.</li> <li><strong>Internos de la facultad:</strong> Que pueden variar según objetivos.</li> </ol></div>
+                </div>
+            </div>
+            
+            <div id="faq-0-2" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-0-2')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">03.</span> ¿Cómo sé si quedé seleccionado en una convocatoria?
+                    </div>
+                    <div id="icon-faq-0-2" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-0-2" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Si eres seleccionado, recibirás una notificación por correo electrónico y tu estado en la sección de convocatorias en Mi Panel se actualizará.</div>
+                </div>
+            </div>
+            </div>
+        <div style="margin-bottom: 4rem;">
+            <div style="margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
+                <div style="background: #ffffff; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
+                <div>
+                    <h2 style="color: #1e293b; font-size: 1.5rem; font-weight: 700; margin: 0; letter-spacing: -0.5px;">2. Desarrollo de la PPS</h2>
+                    <p style="color: #64748b; font-size: 1rem; margin: 0.2rem 0 0 0;">Información detallada para gestionar tu práctica una vez que ya la estás realizando.</p>
+                </div>
+            </div>
+        
+            <div id="faq-1-0" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-1-0')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">04.</span> ¿Cuántas horas “acredita” mi PPS?
+                    </div>
+                    <div id="icon-faq-1-0" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-1-0" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">La mayoría de las convocatorias indica la cantidad exacta de horas que acredita. Si dice "según recorrido", dependerá de la extensión y la frecuencia de la PPS, acreditando un máximo de 80 horas. Este máximo de 80 horas aplica a todas las PPS. <div style="margin-top: 1rem; padding: 1rem; background-color: #FFFBEB; border-left: 4px solid #F59E0B; border-radius: 4px; color: #92400E;"> <strong>Importante:</strong> Las horas no se acreditan oficialmente hasta completar las 250 horas. Mientras tanto, lo que hay es un registro interno por parte del coordinador a través de Mi Panel y el seguimiento del estudiante mediante la planilla de seguimiento de horas. </div></div>
+                </div>
+            </div>
+            
+            <div id="faq-1-1" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-1-1')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">05.</span> ¿Puedo cambiar de orientación durante las PPS?
+                    </div>
+                    <div id="icon-faq-1-1" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-1-1" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">No es posible cambiar de orientación. Debes completar las horas en la orientación asignada.</div>
+                </div>
+            </div>
+            
+            <div id="faq-1-2" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-1-2')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">06.</span> ¿Qué sucede si me ausento de la institución?
+                    </div>
+                    <div id="icon-faq-1-2" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-1-2" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Si necesitás ausentarte, es obligatorio que justifiques tu ausencia y avises a tu coordinador de la institución con la debida anticipación. Una ausencia sin previo aviso se considera una <strong>falta grave de compromiso</strong> con la PPS y puede ser un factor determinante en la desaprobación de la práctica.</div>
+                </div>
+            </div>
+            
+            <div id="faq-1-3" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-1-3')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">07.</span> ¿Qué pasa si no completo las horas exactas por feriados o paros?
+                    </div>
+                    <div id="icon-faq-1-3" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-1-3" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Las horas no cumplidas por feriados, paros o situaciones internas de la institución pueden recuperarse mediante la extensión del período de la PPS, si la institución lo autoriza. Sin embargo, en caso de no recuperar las horas y finalizar la práctica en la fecha estipulada, se acreditarán las horas tipificadas en la convocatoria, independientemente de si las horas reales fueron menores o mayores.</div>
+                </div>
+            </div>
+            
+            <div id="faq-1-4" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-1-4')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">08.</span> ¿Qué sucede si decido continuar más tiempo en mi PPS?
+                    </div>
+                    <div id="icon-faq-1-4" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-1-4" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Si deseas extender tu práctica más allá de la fecha estipulada, debés comunicarte con tu coordinador para que se actualice el seguro. Sin embargo, tené en cuenta que <strong>no se acreditarán horas adicionales</strong> a las establecidas en la convocatoria original.</div>
+                </div>
+            </div>
+            
+            <div id="faq-1-5" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-1-5')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">09.</span> ¿Puedo repetir una PPS?
+                    </div>
+                    <div id="icon-faq-1-5" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-1-5" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">No, no es posible repetir una PPS en la misma institución y con la misma orientación. Cada práctica debe ser una experiencia nueva para que puedas explorar diferentes campos y adquirir diversas habilidades.</div>
+                </div>
+            </div>
+            
+            <div id="faq-1-6" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-1-6')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">10.</span> ¿Qué sucede si necesito dar de baja una PPS antes de finalizarla?
+                    </div>
+                    <div id="icon-faq-1-6" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-1-6" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Si por algún motivo necesitás dar de baja una PPS antes de finalizarla, es fundamental que lo comuniques de inmediato a la institución y a tu coordinador. Se realizará una evaluación conjunta con la institución, pero en general la PPS es suspendida y se pierden las horas realizadas.</div>
+                </div>
+            </div>
+            </div>
+        <div style="margin-bottom: 4rem;">
+            <div style="margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
+                <div style="background: #ffffff; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>
+                <div>
+                    <h2 style="color: #1e293b; font-size: 1.5rem; font-weight: 700; margin: 0; letter-spacing: -0.5px;">3. Informes</h2>
+                    <p style="color: #64748b; font-size: 1rem; margin: 0.2rem 0 0 0;">Todo sobre la elaboración, entrega y corrección de tus informes de práctica.</p>
+                </div>
+            </div>
+        
+            <div id="faq-2-0" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-2-0')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">11.</span> ¿Hay alguna guía para la elaboración de informes?
+                    </div>
+                    <div id="icon-faq-2-0" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-2-0" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Sí, podés encontrar la guía para hacer tus informes en la sección de descarga del campus virtual.</div>
+                </div>
+            </div>
+            
+            <div id="faq-2-1" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-2-1')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">12.</span> ¿Cómo entrego un informe?
+                    </div>
+                    <div id="icon-faq-2-1" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-2-1" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Los informes se entregan en el campus virtual, en la sección correspondiente a la orientación. Cada PPS tiene una tarjeta en el campus para cargar el informe. Recomendamos ampliamente cargar la planilla de asistencia en conjunto con el informe si la PPS era presencial.</div>
+                </div>
+            </div>
+            
+            <div id="faq-2-2" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-2-2')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">13.</span> ¿Debo firmar la planilla de asistencia en las Prácticas online o eventos especiales?
+                    </div>
+                    <div id="icon-faq-2-2" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-2-2" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">No, no se firma la planilla en prácticas online o eventos especiales. En estos casos, el Informe Final es el elemento oficial que acredita la realización de la PPS.</div>
+                </div>
+            </div>
+            
+            <div id="faq-2-3" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-2-3')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">14.</span> ¿Cuáles son las fechas de entrega de informe?
+                    </div>
+                    <div id="icon-faq-2-3" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-2-3" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Tienen <strong>30 días corridos</strong> una vez finalizada la PPS para la entrega del informe. Es crucial que registren esta fecha, ya que las tareas en el campus no van a tener fecha configurada por defecto, por lo que ustedes deben tener ese criterio y llevar el control.</div>
+                </div>
+            </div>
+            
+            <div id="faq-2-4" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-2-4')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">15.</span> ¿Cuánto tiempo tiene el docente para corregir los informes?
+                    </div>
+                    <div id="icon-faq-2-4" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-2-4" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">El plazo de corrección es de <strong>30 días hábiles</strong> a partir de la entrega. Importante: Pueden cargar la nota en Mi Panel si así lo desean, es opcional.</div>
+                </div>
+            </div>
+            
+            <div id="faq-2-5" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-2-5')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">16.</span> ¿Qué hago si mi informe no fue corregido en el plazo?
+                    </div>
+                    <div id="icon-faq-2-5" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-2-5" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Si cargaste tu informe en plazo y pasaron los 30 días, podés enviar un correo al coordinador para que notifique al jefe de área correspondiente.</div>
+                </div>
+            </div>
+            
+            <div id="faq-2-6" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-2-6')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">17.</span> ¿Qué hago si no llego a entregar el informe en el plazo?
+                    </div>
+                    <div id="icon-faq-2-6" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-2-6" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Si por un motivo excepcional no podés entregar tu informe a tiempo, comunicate con el coordinador antes de que venza el plazo para solicitar una prórroga. Si se aprueba, el docente lo corregirá según su disponibilidad, ya que el plazo de 30 días no se aplica a entregas fuera de término.</div>
+                </div>
+            </div>
+            </div>
+        <div style="margin-bottom: 4rem;">
+            <div style="margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
+                <div style="background: #ffffff; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg></div>
+                <div>
+                    <h2 style="color: #1e293b; font-size: 1.5rem; font-weight: 700; margin: 0; letter-spacing: -0.5px;">4. Sobre Mi Panel y Acreditación Final</h2>
+                    <p style="color: #64748b; font-size: 1rem; margin: 0.2rem 0 0 0;">Preguntas sobre requisitos, errores, correcciones y problemas de acceso.</p>
+                </div>
+            </div>
+        
+            <div id="faq-3-0" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-3-0')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">18.</span> ¿Cuáles son los requisitos obligatorios para la acreditación final de las PPS?
+                    </div>
+                    <div id="icon-faq-3-0" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-3-0" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Para dar por finalizado tu recorrido y poder solicitar la acreditación final, debes cumplir con los siguientes requisitos: <ul style="margin-top: 1rem; padding-left: 1.5rem; color: #475569;"> <li style="margin-bottom: 0.5rem;"><strong>250 Horas Totales:</strong> Acumular un total de 250 horas de práctica aprobadas.</li> <li style="margin-bottom: 0.5rem;"><strong>70 Horas de Especialidad:</strong> Un mínimo de 70 horas deben ser en tu orientación de especialidad.</li> <li style="margin-bottom: 0.5rem;"><strong>Rotación por 3 Orientaciones:</strong> Haber participado en prácticas de, como mínimo, 3 de las 4 orientaciones disponibles.</li> <li style="margin-bottom: 0.5rem;"><strong>Informes Aprobados:</strong> Tener todos los informes corregidos y aprobados por el docente.</li> </ul> <div style="margin-top: 1rem; padding: 0.8rem; background-color: #EFF6FF; border-radius: 6px; color: #1E40AF;"> <strong>Herramienta Clave:</strong> Utiliza el Excel de Seguimiento (disponible en el Campus Virtual) para el control exacto de tus horas, ya que Mi Panel es solo referencial. </div></div>
+                </div>
+            </div>
+            
+            <div id="faq-3-1" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-3-1')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">19.</span> ¿Qué es Mi Panel?
+                    </div>
+                    <div id="icon-faq-3-1" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-3-1" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Mi Panel es una herramienta integral creada por el coordinador para centralizar y facilitar la gestión de tu recorrido por las PPS. En él, podrás inscribirte en convocatorias, gestionar tus solicitudes y llevar un registro actualizado de tu avance en horas. <br><br> <strong>Importante:</strong> No es una herramienta oficial de la universidad y sus datos solo son un seguimiento interno. El estudiante tiene una herramienta para hacer su propio seguimiento que es la planilla de asistencia.</div>
+                </div>
+            </div>
+            
+            <div id="faq-3-2" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-3-2')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">20.</span> ¿Cómo se instala Mi Panel en el celular?
+                    </div>
+                    <div id="icon-faq-3-2" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-3-2" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Se puede instalar Mi Panel en tu celular utilizando la función "Añadir a pantalla de inicio" de tu navegador (Chrome, Safari, etc.). Esta opción está disponible al ingresar a la plataforma y haciendo click en el icono de instalación en la barra superior.</div>
+                </div>
+            </div>
+            
+            <div id="faq-3-3" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-3-3')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">21.</span> ¿Qué pasa si no puedo acceder a "Mi Panel"?
+                    </div>
+                    <div id="icon-faq-3-3" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-3-3" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Si no podés acceder o te da un error, comunicate con el Coordinador. A veces, si es la primera vez que intentás inscribirte, tu legajo puede no estar cargado en el sistema.</div>
+                </div>
+            </div>
+            
+            <div id="faq-3-4" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-3-4')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">22.</span> ¿Cómo solicito una corrección en Mi Panel?
+                    </div>
+                    <div id="icon-faq-3-4" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-3-4" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Puedes solicitar una corrección o agregar una PPS desde la sección 'Mis Prácticas' en Mi Panel. También puedes editar las fechas y eliminar PPS sin necesidad de confirmación del administrador.</div>
+                </div>
+            </div>
+            </div>
+        <div style="margin-bottom: 4rem;">
+            <div style="margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
+                <div style="background: #ffffff; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
+                <div>
+                    <h2 style="color: #1e293b; font-size: 1.5rem; font-weight: 700; margin: 0; letter-spacing: -0.5px;">5. Comunicación y Trámites</h2>
+                    <p style="color: #64748b; font-size: 1rem; margin: 0.2rem 0 0 0;">Procedimientos especiales y trámites fuera de lo estándar.</p>
+                </div>
+            </div>
+        
+            <div id="faq-4-0" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-4-0')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">23.</span> ¿Cómo presento una propuesta de PPS con una institución propia?
+                    </div>
+                    <div id="icon-faq-4-0" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-4-0" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">Si deseas proponer una institución, debés completar el formulario disponible en Mi Panel. Para que tu propuesta sea válida, debe cumplir los siguientes requisitos: <ul style="margin-top: 1rem; padding-left: 1.5rem; color: #475569;"> <li style="margin-bottom: 0.5rem;">La institución no debe tener un convenio activo con nosotros (consultar el listado).</li> <li style="margin-bottom: 0.5rem;">Debe contar con un profesional de la psicología que supervise tu práctica (requisito excluyente).</li> <li style="margin-bottom: 0.5rem;">Se dará prioridad a las propuestas que ofrezcan varios cupos.</li> <li style="margin-bottom: 0.5rem;">No es necesario que tenga un convenio previo con la universidad.</li> </ul> Una vez enviada, podrás seguir el estado de tu propuesta desde Mi Panel.</div>
+                </div>
+            </div>
+            
+            <div id="faq-4-1" style="background: #ffffff; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); transition: all 0.3s ease; overflow: hidden;" 
+                 onmouseover="this.style.borderColor='#4B8C7A'; this.style.boxShadow='0 10px 15px -3px rgba(75, 140, 122, 0.1)';" 
+                 onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.02)';">
+                <div style="padding: 1.5rem 2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;" onclick="toggleFaqSmooth('faq-4-1')">
+                    <div style="color: #334155; font-weight: 600; font-size: 1.1rem; line-height: 1.4;">
+                        <span style="color: #4B8C7A; font-weight: 800; margin-right: 12px; font-size: 1.2rem; opacity: 0.8;">24.</span> ¿Qué sucede si envié un correo y no tuve respuesta?
+                    </div>
+                    <div id="icon-faq-4-1" style="flex-shrink: 0; width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+                <div id="content-faq-4-1" style="max-height: 0; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); overflow: hidden;">
+                    <div style="padding: 0 2rem 2rem 3.5rem; color: #475569; line-height: 1.7; font-size: 1.05rem; border-top: 1px dashed #e2e8f0; margin-top: 0; padding-top: 1.5rem;">El tiempo estimado de respuesta es de <strong>48 horas hábiles</strong>. Si pasado este tiempo no has recibido una contestación, por favor <strong>reenvía tu correo</strong> indicando en el asunto la palabra 'URGENTE' para que podamos priorizar tu caso.</div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- SCRIPT DE INTERACTIVIDAD -->
+    <script>
+        function toggleFaqSmooth(id) {
+            const content = document.getElementById('content-' + id);
+            const iconDiv = document.getElementById('icon-' + id);
+            if (!content || !iconDiv) return;
+            const iconSvg = iconDiv.querySelector('svg');
+            if (!content.style.maxHeight || content.style.maxHeight === '0px') {
+                // Cerrar otros
+                document.querySelectorAll('[id^="content-faq-"]').forEach(el => {
+                    el.style.maxHeight = '0px';
+                    try {
+                        const otherIcon = document.getElementById(el.id.replace('content-', 'icon-'));
+                        otherIcon.style.backgroundColor = '#f1f5f9';
+                        otherIcon.style.transform = 'rotate(0deg)';
+                        otherIcon.querySelector('svg').style.stroke = '#64748b';
+                    } catch (e) {}
+                });
+                // Abrir este
+                content.style.maxHeight = content.scrollHeight + 50 + "px";
+                iconDiv.style.backgroundColor = '#4B8C7A';
+                iconDiv.style.transform = 'rotate(180deg)';
+                iconSvg.style.stroke = '#ffffff';
+            } else {
+                content.style.maxHeight = '0px';
+                iconDiv.style.backgroundColor = '#f1f5f9';
+                iconDiv.style.transform = 'rotate(0deg)';
+                iconSvg.style.stroke = '#64748b';
+            }
+        }
+    </script>
+</div> 
+
+ESPACIO DE ENTREGA DE INFORMES: INICIO
+
+<!-- SECCIÓN 1: INSTRUCCIONES (SIN CAMBIOS, YA ESTÁ PERFECTA) -->
+<div class="container-fluid my-5">
+    <!-- ... tu bloque de instrucciones completo va aquí ... -->
+    <!-- (El código de la SECCIÓN 1 se mantiene igual que en tu versión) -->
+    <div class="container px-lg-5" style="max-width: 1200px; margin: 0 auto 3rem auto;">
+        <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(75, 140, 122, 0.25);">
+            <img src="https://campus.uflo.edu.ar/draftfile.php/650961/user/draft/18414610/Banner%20Linkedin%20Profesional%20Corporativo%20Sencillo%20Beige%20y%20Gris%20%286%29.png" alt="Instrucciones para la Entrega de Informes" style="width: 100%; height: auto; display: block;">
+        </div>
+    </div>
+    <div class="container px-lg-4" style="max-width: 1200px; margin: 0 auto;">
+        <div style="background: #ffffff; border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(75, 140, 122, 0.2); padding: 3rem 4rem;">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold" style="color: #334155; font-size: 2.8rem; letter-spacing: -1px; line-height: 1.2;">
+                    Guía para la Entrega de <span style="color: #4B8C7A;">Informes</span>
+                </h2>
+                <p class="lead mt-3" style="color: #64748b; font-size: 1.3rem; max-width: 700px; margin: 0.5rem auto 0;">
+                    Seguí estos pasos para asegurar la correcta acreditación de tu práctica.
+                </p>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 2.5rem;">
+                <div style="background-color: #EBF3F1; color: #4B8C7A; min-width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700;">1</div>
+                <div>
+                    <h3 style="color: #334155; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem;">Cargá tu Documentación</h3>
+                    <p style="color: #475569; font-size: 1.1rem; line-height: 1.7; margin: 0;">Subí la <strong>planilla de asistencia firmada</strong> y el <strong>informe final</strong> en la sección de la PPS que cursaste. Tenés hasta <strong>30 días</strong> post-práctica.</p>
+                </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 2.5rem;">
+                <div style="background-color: #EBF3F1; color: #4B8C7A; min-width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700;">2</div>
+                <div>
+                    <h3 style="color: #334155; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem;">Aguardá la Corrección</h3>
+                    <p style="color: #475569; font-size: 1.1rem; line-height: 1.7; margin: 0;">El plazo estimado para la corrección es de <strong>hasta 30 días hábiles</strong> desde tu entrega.</p>
+                </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 2.5rem;">
+                <div style="background-color: #EBF3F1; color: #4B8C7A; min-width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700;">3</div>
+                <div>
+                    <h3 style="color: #334155; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem;">Recibí la Devolución</h3>
+                    <p style="color: #475569; font-size: 1.1rem; line-height: 1.7; margin: 0;">Las devoluciones y calificaciones se notifican <strong>únicamente por el campus virtual</strong> y tu correo institucional.</p>
+                </div>
+            </div>
+            <div style="margin-top: 2rem; background: #F8FBFB; border-left: 4px solid #4B8C7A; border-radius: 0 8px 8px 0; padding: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                <div style="color: #4B8C7A; flex-shrink: 0;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg></div>
+                <p style="color: #475569; font-size: 1.1rem; line-height: 1.7; margin: 0;">Es importante que conserves una copia de tu <strong>informe y planilla</strong>, y mantengas actualizada tu <strong>planilla de seguimiento personal</strong>.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CAMBIO: AÑADIDO SEPARADOR VISUAL PARA MEJORAR LA TRANSICIÓN -->
+<div class="container-fluid my-5">
+    <div class="container px-lg-5" style="max-width: 1400px; margin: 0 auto; text-align: center;">
+        <div style="height: 1px; width: 150px; background: linear-gradient(to right, rgba(226, 232, 240, 0), #d1d5db, rgba(226, 232, 240, 0)); margin: 0 auto;"></div>
+    </div>
+</div>
+
+
+<!-- 3. ÁREAS DE PRÁCTICA (DISEÑO SUTIL & PREMIUM) -->
+<div class="container px-lg-5" style="max-width: 1200px; margin: 0 auto; padding-bottom: 3rem;">
+
+    <div class="text-center mb-5 px-3">
+        <h2 style="color: #334155; font-weight: 800; font-size: 2.5rem; letter-spacing: -0.5px; margin-bottom: 0.5rem;">
+            Áreas de Práctica
+        </h2>
+        <p style="color: #94a3b8; font-size: 1.2rem;">Accede al buzón de entrega correspondiente.</p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- TARJETA 1: ÁREA CLÍNICA (Verde Suave) -->
+        <div class="col-lg-4 d-flex align-items-stretch">
+            <div style="width: 100%; background: #ffffff; border-radius: 24px; border: 1px solid #f1f5f9; padding: 2.5rem 2rem; cursor: pointer; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; overflow: hidden;" onclick="window.open('https://campus.uflo.edu.ar/course/view.php?id=3615&amp;section=4#tabs-tree-start')" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 40px -10px rgba(75, 140, 122, 0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+
+                <!-- Icono Circular -->
+                <div style="width: 80px; height: 80px; background-color: #F0FDF9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; color: #4B8C7A; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2a10 10 0 0 0-9.95 9.1c-.05 5.5 4.3 10.1 9.75 10.4a10.4 10.4 0 0 0 10.2-9.8c.05-5.5-4.3-10-9.75-10.1c-.1 0-.2 0-.25 0zM12 12h.01M16 12h.01M8 12h.01"></path>
+                    </svg>
+                </div>
+
+                <h3 style="color: #334155; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem;">Área Clínica</h3>
+                <p style="color: #94a3b8; font-size: 1rem; line-height: 1.6; margin-bottom: 2rem; flex-grow: 1;">Salud mental, psicoterapia y dispositivos de atención.</p>
+
+                <div style="color: #4B8C7A; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+                    <span>Ingresar</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- TARJETA 2: ÁREA LABORAL (Rojo Suave) -->
+        <div class="col-lg-4 d-flex align-items-stretch">
+            <div style="width: 100%; background: #ffffff; border-radius: 24px; border: 1px solid #f1f5f9; padding: 2.5rem 2rem; cursor: pointer; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; overflow: hidden;" onclick="window.open('https://campus.uflo.edu.ar/course/view.php?id=3615&amp;section=5#tabs-tree-start')" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 40px -10px rgba(242, 107, 107, 0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+
+                <!-- Icono Circular -->
+                <div style="width: 80px; height: 80px; background-color: #FFF5F5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; color: #F26B6B; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+
+                <h3 style="color: #334155; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem;">Laboral &amp; Comunitaria</h3>
+                <p style="color: #94a3b8; font-size: 1rem; line-height: 1.6; margin-bottom: 2rem; flex-grow: 1;">Organizaciones, empresas e intervenciones sociales.</p>
+
+                <div style="color: #F26B6B; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+                    <span>Ingresar</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- TARJETA 3: ÁREA EDUCACIONAL (Azul Suave) -->
+        <div class="col-lg-4 d-flex align-items-stretch">
+            <div style="width: 100%; background: #ffffff; border-radius: 24px; border: 1px solid #f1f5f9; padding: 2.5rem 2rem; cursor: pointer; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; overflow: hidden;" onclick="window.open('https://campus.uflo.edu.ar/course/view.php?id=3615&amp;section=6#tabs-tree-start')" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 40px -10px rgba(14, 165, 233, 0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+
+                <!-- Icono Circular -->
+                <div style="width: 80px; height: 80px; background-color: #F0F9FF; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; color: #0EA5E9; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                </div>
+
+                <h3 style="color: #334155; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem;">Área Educacional</h3>
+                <p style="color: #94a3b8; font-size: 1rem; line-height: 1.6; margin-bottom: 2rem; flex-grow: 1;">Instituciones educativas y orientación vocacional.</p>
+
+                <div style="color: #0EA5E9; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+                    <span>Ingresar</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+ESPACIO DE ENTREGA DE INFORMES CLINICA: 
+<div class="container-fluid my-5">
+
+    <div class="container px-lg-5" style="max-width: 1400px; margin: 0 auto;">
+        <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px -15px rgba(75, 140, 122, 0.25);">
+            <img src="https://campus.uflo.edu.ar/draftfile.php/650961/user/draft/515931082/3%20%281%29.png" alt="Área Clínica" style="width: 100%; height: auto; display: block;">
+        </div>
+    </div>
+
+    <div class="text-center mt-5 mb-5 px-3">
+        <h1 class="display-4 fw-bold mb-2" style="color: #1e293b; letter-spacing: -1.5px; font-size: 3.2rem;">
+            Entregas del <span style="color: #4B8C7A;">Área Clínica</span>
+        </h1>
+        <p style="color: #64748b; font-size: 1.25rem; max-width: 700px; margin: 0 auto 2rem;">
+            Directorio de instituciones habilitadas para la carga de documentación final.
+        </p>
+    </div>
+
+    <div class="container px-lg-5" style="max-width: 1200px; margin: 0 auto;">
+
+        <div class="row" style="margin-left: -12px; margin-right: -12px;">
+
+
+
+<div class="col-lg-4 col-md-6" style="padding: 12px;">
+                <div style="background: #ffffff; border: 1px solid #EAEEF3; border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: space-between; height: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);" onclick="window.open('https://campus.uflo.edu.ar/mod/assign/view.php?id=946366', '_blank')" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px -5px rgba(75, 140, 122, 0.15)'; this.style.borderColor='#4B8C7A'; this.querySelector('.icon-box').style.backgroundColor='#4B8C7A'; this.querySelector('.icon-box').style.color='#ffffff'; this.querySelector('.arrow').style.transform='translateX(5px)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.01)'; this.style.borderColor='#EAEEF3'; this.querySelector('.icon-box').style.backgroundColor='#F0FDF9'; this.querySelector('.icon-box').style.color='#4B8C7A'; this.querySelector('.arrow').style.transform='translateX(0)';">
+
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="icon-box" style="width: 48px; height: 48px; background: #F0FDF9; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #4B8C7A; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 style="color: #334155; font-size: 1.15rem; font-weight: 700; margin: 0;">Cita Salud</h3>
+                    </div>
+
+                    <div class="arrow" style="color: #cbd5e1; transition: transform 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+<div class="col-lg-4 col-md-6" style="padding: 12px;">
+                <div style="background: #ffffff; border: 1px solid #EAEEF3; border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: space-between; height: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);" onclick="window.open('https://campus.uflo.edu.ar/mod/assign/view.php?id=1085731', '_blank')" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px -5px rgba(75, 140, 122, 0.15)'; this.style.borderColor='#4B8C7A'; this.querySelector('.icon-box').style.backgroundColor='#4B8C7A'; this.querySelector('.icon-box').style.color='#ffffff'; this.querySelector('.arrow').style.transform='translateX(5px)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.01)'; this.style.borderColor='#EAEEF3'; this.querySelector('.icon-box').style.backgroundColor='#F0FDF9'; this.querySelector('.icon-box').style.color='#4B8C7A'; this.querySelector('.arrow').style.transform='translateX(0)';">
+
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="icon-box" style="width: 48px; height: 48px; background: #F0FDF9; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #4B8C7A; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 style="color: #334155; font-size: 1.15rem; font-weight: 700; margin: 0;">Fundación Tiempo</h3>
+                    </div>
+
+                    <div class="arrow" style="color: #cbd5e1; transition: transform 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+
+<div class="col-lg-4 col-md-6" style="padding: 12px;">
+                <div style="background: #ffffff; border: 1px solid #EAEEF3; border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: space-between; height: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);" onclick="window.open('https://campus.uflo.edu.ar/mod/assign/view.php?id=1014110', '_blank')" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px -5px rgba(75, 140, 122, 0.15)'; this.style.borderColor='#4B8C7A'; this.querySelector('.icon-box').style.backgroundColor='#4B8C7A'; this.querySelector('.icon-box').style.color='#ffffff'; this.querySelector('.arrow').style.transform='translateX(5px)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.01)'; this.style.borderColor='#EAEEF3'; this.querySelector('.icon-box').style.backgroundColor='#F0FDF9'; this.querySelector('.icon-box').style.color='#4B8C7A'; this.querySelector('.arrow').style.transform='translateX(0)';">
+
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="icon-box" style="width: 48px; height: 48px; background: #F0FDF9; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #4B8C7A; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 style="color: #334155; font-size: 1.15rem; font-weight: 700; margin: 0;">Dige</h3>
+                    </div>
+
+                    <div class="arrow" style="color: #cbd5e1; transition: transform 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-4 col-md-6" style="padding: 12px;">
+                <div style="background: #ffffff; border: 1px solid #EAEEF3; border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: space-between; height: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);" onclick="window.open('https://campus.uflo.edu.ar/mod/assign/view.php?id=926287', '_blank')" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px -5px rgba(75, 140, 122, 0.15)'; this.style.borderColor='#4B8C7A'; this.querySelector('.icon-box').style.backgroundColor='#4B8C7A'; this.querySelector('.icon-box').style.color='#ffffff'; this.querySelector('.arrow').style.transform='translateX(5px)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.01)'; this.style.borderColor='#EAEEF3'; this.querySelector('.icon-box').style.backgroundColor='#F0FDF9'; this.querySelector('.icon-box').style.color='#4B8C7A'; this.querySelector('.arrow').style.transform='translateX(0)';">
+
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="icon-box" style="width: 48px; height: 48px; background: #F0FDF9; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #4B8C7A; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 style="color: #334155; font-size: 1.15rem; font-weight: 700; margin: 0;">Ateneos Ulloa</h3>
+                    </div>
+
+                    <div class="arrow" style="color: #cbd5e1; transition: transform 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+    
+
+            
+
+            <div class="col-lg-4 col-md-6" style="padding: 12px;">
+                <div style="background: #ffffff; border: 1px solid #EAEEF3; border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: space-between; height: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);" onclick="window.open('https://campus.uflo.edu.ar/mod/assign/view.php?id=920727', '_blank')" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px -5px rgba(75, 140, 122, 0.15)'; this.style.borderColor='#4B8C7A'; this.querySelector('.icon-box').style.backgroundColor='#4B8C7A'; this.querySelector('.icon-box').style.color='#ffffff'; this.querySelector('.arrow').style.transform='translateX(5px)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.01)'; this.style.borderColor='#EAEEF3'; this.querySelector('.icon-box').style.backgroundColor='#F0FDF9'; this.querySelector('.icon-box').style.color='#4B8C7A'; this.querySelector('.arrow').style.transform='translateX(0)';">
+
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="icon-box" style="width: 48px; height: 48px; background: #F0FDF9; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #4B8C7A; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 style="color: #334155; font-size: 1.15rem; font-weight: 700; margin: 0;">Entrevistas Ulloa</h3>
+                    </div>
+
+                    <div class="arrow" style="color: #cbd5e1; transition: transform 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" style="padding: 12px;">
+                <div style="background: #ffffff; border: 1px solid #EAEEF3; border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: space-between; height: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);" onclick="window.open('https://campus.uflo.edu.ar/mod/assign/view.php?id=914852', '_blank')" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px -5px rgba(75, 140, 122, 0.15)'; this.style.borderColor='#4B8C7A'; this.querySelector('.icon-box').style.backgroundColor='#4B8C7A'; this.querySelector('.icon-box').style.color='#ffffff'; this.querySelector('.arrow').style.transform='translateX(5px)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.01)'; this.style.borderColor='#EAEEF3'; this.querySelector('.icon-box').style.backgroundColor='#F0FDF9'; this.querySelector('.icon-box').style.color='#4B8C7A'; this.querySelector('.arrow').style.transform='translateX(0)';">
+
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="icon-box" style="width: 48px; height: 48px; background: #F0FDF9; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #4B8C7A; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 style="color: #334155; font-size: 1.15rem; font-weight: 700; margin: 0;">Kano</h3>
+                    </div>
+
+                    <div class="arrow" style="color: #cbd5e1; transition: transform 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" style="padding: 12px;">
+                <div style="background: #ffffff; border: 1px solid #EAEEF3; border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: space-between; height: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);" onclick="window.open('https://campus.uflo.edu.ar/mod/assign/view.php?id=906164', '_blank')" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px -5px rgba(75, 140, 122, 0.15)'; this.style.borderColor='#4B8C7A'; this.querySelector('.icon-box').style.backgroundColor='#4B8C7A'; this.querySelector('.icon-box').style.color='#ffffff'; this.querySelector('.arrow').style.transform='translateX(5px)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.01)'; this.style.borderColor='#EAEEF3'; this.querySelector('.icon-box').style.backgroundColor='#F0FDF9'; this.querySelector('.icon-box').style.color='#4B8C7A'; this.querySelector('.arrow').style.transform='translateX(0)';">
+
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="icon-box" style="width: 48px; height: 48px; background: #F0FDF9; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #4B8C7A; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 style="color: #334155; font-size: 1.15rem; font-weight: 700; margin: 0;">Relevamiento Prof.</h3>
+                    </div>
+
+                    <div class="arrow" style="color: #cbd5e1; transition: transform 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" style="padding: 12px;">
+                <div style="background: #ffffff; border: 1px solid #EAEEF3; border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: space-between; height: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);" onclick="window.open('https://campus.uflo.edu.ar/mod/assign/view.php?id=805657', '_blank')" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px -5px rgba(75, 140, 122, 0.15)'; this.style.borderColor='#4B8C7A'; this.querySelector('.icon-box').style.backgroundColor='#4B8C7A'; this.querySelector('.icon-box').style.color='#ffffff'; this.querySelector('.arrow').style.transform='translateX(5px)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.01)'; this.style.borderColor='#EAEEF3'; this.querySelector('.icon-box').style.backgroundColor='#F0FDF9'; this.querySelector('.icon-box').style.color='#4B8C7A'; this.querySelector('.arrow').style.transform='translateX(0)';">
+
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="icon-box" style="width: 48px; height: 48px; background: #F0FDF9; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #4B8C7A; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 style="color: #334155; font-size: 1.15rem; font-weight: 700; margin: 0;">Barriletes en Bandada</h3>
+                    </div>
+
+                    <div class="arrow" style="color: #cbd5e1; transition: transform 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" style="padding: 12px;">
+                <div style="background: #ffffff; border: 1px solid #EAEEF3; border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: space-between; height: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);" onclick="window.open('https://campus.uflo.edu.ar/mod/assign/view.php?id=805658', '_blank')" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px -5px rgba(75, 140, 122, 0.15)'; this.style.borderColor='#4B8C7A'; this.querySelector('.icon-box').style.backgroundColor='#4B8C7A'; this.querySelector('.icon-box').style.color='#ffffff'; this.querySelector('.arrow').style.transform='translateX(5px)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.01)'; this.style.borderColor='#EAEEF3'; this.querySelector('.icon-box').style.backgroundColor='#F0FDF9'; this.querySelector('.icon-box').style.color='#4B8C7A'; this.querySelector('.arrow').style.transform='translateX(0)';">
+
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="icon-box" style="width: 48px; height: 48px; background: #F0FDF9; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #4B8C7A; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 style="color: #334155; font-size: 1.15rem; font-weight: 700; margin: 0;">Programa Aser</h3>
+                    </div>
+
+                    <div class="arrow" style="color: #cbd5e1; transition: transform 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+        </div> </div> </div>
+
+ESPACIO DE ENTREGA DE INFORMES LABORAL: 
+<div class="container-fluid my-5">
+
+    <div class="container px-lg-5" style="max-width: 1400px; margin: 0 auto;">
+        <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px -15px rgba(242, 107, 107, 0.25);">
+            <img src="https://campus.uflo.edu.ar/draftfile.php/650961/user/draft/375946405/4.png" alt="Área Laboral &amp; Comunitaria" style="width: 100%; height: auto; display: block;">
+        </div>
+    </div>
+
+    <div class="text-center mt-5 mb-5 px-3">
+        <h1 class="display-4 fw-bold mb-2" style="color: #1e293b; letter-spacing: -1.5px; font-size: 3.2rem;">
+            Entregas del <span style="color: #f26b6b;">Área Laboral</span>
+        </h1>
+        <p style="color: #64748b; font-size: 1.25rem; max-width: 700px; margin: 0 auto 2rem;">
+            Directorio de instituciones habilitadas para la carga de documentación final.
+        </p>
+    </div>
+
+    <div class="container px-lg-5" style="max-width: 1200px; margin: 0 auto;">
+
+        <div class="row" style="margin-left: -12px; margin-right: -12px;">
+
+
+
+<div class="col-lg-4 col-md-6" style="padding: 12px;">
+                <div style="background: #ffffff; border: 1px solid #EAEEF3; border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: space-between; height: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);" onclick="window.open('https://campus.uflo.edu.ar/mod/assign/view.php?id=1085736', '_blank')" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px -5px rgba(242, 107, 107, 0.15)'; this.style.borderColor='#f26b6b'; this.querySelector('.icon-box').style.backgroundColor='#f26b6b'; this.querySelector('.icon-box').style.color='#ffffff'; this.querySelector('.arrow').style.transform='translateX(5px)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.01)'; this.style.borderColor='#EAEEF3'; this.querySelector('.icon-box').style.backgroundColor='#FFF5F5'; this.querySelector('.icon-box').style.color='#f26b6b'; this.querySelector('.arrow').style.transform='translateX(0)';">
+
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="icon-box" style="width: 48px; height: 48px; background: #FFF5F5; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #f26b6b; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 style="color: #334155; font-size: 1.15rem; font-weight: 700; margin: 0;">Randstad</h3>
+                    </div>
+
+                    <div class="arrow" style="color: #cbd5e1; transition: transform 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+
+ <div class="col-lg-4 col-md-6" style="padding: 12px;">
+                <div style="background: #ffffff; border: 1px solid #EAEEF3; border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: space-between; height: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);" onclick="window.open('https://campus.uflo.edu.ar/mod/assign/view.php?id=1074975', '_blank')" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px -5px rgba(242, 107, 107, 0.15)'; this.style.borderColor='#f26b6b'; this.querySelector('.icon-box').style.backgroundColor='#f26b6b'; this.querySelector('.icon-box').style.color='#ffffff'; this.querySelector('.arrow').style.transform='translateX(5px)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.01)'; this.style.borderColor='#EAEEF3'; this.querySelector('.icon-box').style.backgroundColor='#FFF5F5'; this.querySelector('.icon-box').style.color='#f26b6b'; this.querySelector('.arrow').style.transform='translateX(0)';">
+
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="icon-box" style="width: 48px; height: 48px; background: #FFF5F5; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #f26b6b; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 style="color: #334155; font-size: 1.15rem; font-weight: 700; margin: 0;">Human</h3>
+                    </div>
+
+                    <div class="arrow" style="color: #cbd5e1; transition: transform 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" style="padding: 12px;">
+                <div style="background: #ffffff; border: 1px solid #EAEEF3; border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: space-between; height: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);" onclick="window.open('https://campus.uflo.edu.ar/mod/assign/view.php?id=1009867', '_blank')" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px -5px rgba(242, 107, 107, 0.15)'; this.style.borderColor='#f26b6b'; this.querySelector('.icon-box').style.backgroundColor='#f26b6b'; this.querySelector('.icon-box').style.color='#ffffff'; this.querySelector('.arrow').style.transform='translateX(5px)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.01)'; this.style.borderColor='#EAEEF3'; this.querySelector('.icon-box').style.backgroundColor='#FFF5F5'; this.querySelector('.icon-box').style.color='#f26b6b'; this.querySelector('.arrow').style.transform='translateX(0)';">
+
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="icon-box" style="width: 48px; height: 48px; background: #FFF5F5; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #f26b6b; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 style="color: #334155; font-size: 1.15rem; font-weight: 700; margin: 0;">Prevención en Colonias</h3>
+                    </div>
+
+                    <div class="arrow" style="color: #cbd5e1; transition: transform 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" style="padding: 12px;">
+                <div style="background: #ffffff; border: 1px solid #EAEEF3; border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: space-between; height: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);" onclick="window.open('https://campus.uflo.edu.ar/mod/assign/view.php?id=906141', '_blank')" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px -5px rgba(242, 107, 107, 0.15)'; this.style.borderColor='#f26b6b'; this.querySelector('.icon-box').style.backgroundColor='#f26b6b'; this.querySelector('.icon-box').style.color='#ffffff'; this.querySelector('.arrow').style.transform='translateX(5px)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.01)'; this.style.borderColor='#EAEEF3'; this.querySelector('.icon-box').style.backgroundColor='#FFF5F5'; this.querySelector('.icon-box').style.color='#f26b6b'; this.querySelector('.arrow').style.transform='translateX(0)';">
+
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="icon-box" style="width: 48px; height: 48px; background: #FFF5F5; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #f26b6b; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 style="color: #334155; font-size: 1.15rem; font-weight: 700; margin: 0;">Camioneros</h3>
+                    </div>
+
+                    <div class="arrow" style="color: #cbd5e1; transition: transform 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+   
+
+        </div> </div> </div>
+
+ESPACIO DE ENTREGA DE INFORMES EDUCACIONAL: 
+<div class="container-fluid my-5">
+
+    <div class="container px-lg-5" style="max-width: 1400px; margin: 0 auto;">
+        <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px -15px rgba(74, 144, 226, 0.25);">
+            <img src="https://campus.uflo.edu.ar/draftfile.php/650961/user/draft/468921025/5.png" alt="Área Educacional" style="width: 100%; height: auto; display: block;">
+        </div>
+    </div>
+
+    <div class="text-center mt-5 mb-5 px-3">
+        <h1 class="display-4 fw-bold mb-2" style="color: #1e293b; letter-spacing: -1.5px; font-size: 3.2rem;">
+            Entregas del <span style="color: #4a90e2;">Área Educacional</span>
+        </h1>
+        <p style="color: #64748b; font-size: 1.25rem; max-width: 700px; margin: 0 auto 2rem;">
+            Directorio de instituciones habilitadas para la carga de documentación final.
+        </p>
+    </div>
+
+    <div class="container px-lg-5" style="max-width: 1200px; margin: 0 auto;">
+        
+        <div class="row" style="margin-left: -12px; margin-right: -12px;">
+
+            <div class="col-lg-4 col-md-6" style="padding: 12px;">
+                <div style="background: #ffffff; border: 1px solid #EAEEF3; border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: space-between; height: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);" onclick="window.open('https://campus.uflo.edu.ar/mod/assign/view.php?id=906167', '_blank')" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px -5px rgba(74, 144, 226, 0.15)'; this.style.borderColor='#4a90e2'; this.querySelector('.icon-box').style.backgroundColor='#4a90e2'; this.querySelector('.icon-box').style.color='#ffffff'; this.querySelector('.arrow').style.transform='translateX(5px)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.01)'; this.style.borderColor='#EAEEF3'; this.querySelector('.icon-box').style.backgroundColor='#F0F7FF'; this.querySelector('.icon-box').style.color='#4a90e2'; this.querySelector('.arrow').style.transform='translateX(0)';">
+                    
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="icon-box" style="width: 48px; height: 48px; background: #F0F7FF; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #4a90e2; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                        </div>
+                        <h3 style="color: #334155; font-size: 1.15rem; font-weight: 700; margin: 0;">Relevamiento Prof.</h3>
+                    </div>
+                    
+                    <div class="arrow" style="color: #cbd5e1; transition: transform 0.3s ease;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </div>
+            </div>
+
+       
+
+        </div> </div> </div>
