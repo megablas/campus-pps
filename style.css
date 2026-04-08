@@ -594,6 +594,21 @@ a {
     margin-bottom: 1.2rem;
 }
 
+.faq-hero-card {
+    margin-bottom: 1.2rem;
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.03);
+}
+
+.faq-hero-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #f8fafc;
+}
+
 .guide-icon {
     width: 64px;
     height: 64px;
@@ -835,7 +850,7 @@ a {
     }
 
     .r-img {
-        opacity: 0.16;
+        opacity: 0.22;
         right: -10px;
         width: 120px;
     }
