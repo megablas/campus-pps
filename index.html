@@ -171,54 +171,24 @@
                 <header class="section-header">
                     <span class="section-chip">Centro de Ayuda</span>
                     <h2>Preguntas y respuestas</h2>
-                    <p>Una base profesional y flexible para ir sumando consultas recurrentes durante toda la cursada.</p>
+                    <p>Ahora esta pestaña vuelve a incluir la guia completa y todas las preguntas frecuentes del campus original, dentro del diseño nuevo.</p>
                 </header>
 
                 <div class="faq-hero-card">
                     <img src="assets/faq-hero.svg" alt="Ilustracion de preguntas frecuentes">
                 </div>
 
-                <div class="guide-card">
-                    <div class="guide-icon">Guia</div>
-                    <div>
-                        <h3>Guia rapida de inicio</h3>
-                        <p>Mi Panel funciona como herramienta de gestion, el Excel ayuda al seguimiento fino de horas, y las consultas individuales se canalizan por correo institucional.</p>
+                <div class="faq-rich-shell">
+                    <div class="guide-card">
+                        <div class="guide-icon">FAQ</div>
+                        <div>
+                            <h3>Centro completo de ayuda</h3>
+                            <p>Debajo se carga la guía íntegra del campus original, con todas las categorías y preguntas frecuentes ya existentes.</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="faq-group">
-                    <h3>Primeros pasos</h3>
-                    <div class="faq-item">
-                        <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-1">Por donde conviene empezar dentro del aula?</button>
-                        <div class="faq-answer" id="faq-1" hidden>Lo mejor es recorrer esta portada, revisar descargas clave y leer esta seccion antes de hacer una consulta individual. Asi ordenas rapido el recorrido.</div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-2">Que es Mi Panel?</button>
-                        <div class="faq-answer" id="faq-2" hidden>Es una herramienta de gestion para inscripciones, seguimiento y solicitudes. Sirve para ordenar el recorrido, aunque el control personal de horas conviene sostenerlo tambien en tu propia planilla.</div>
-                    </div>
-                </div>
-
-                <div class="faq-group">
-                    <h3>Entregas e informes</h3>
-                    <div class="faq-item">
-                        <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-3">Que debo subir para acreditar la practica?</button>
-                        <div class="faq-answer" id="faq-3" hidden>En general, la planilla de asistencia firmada y el informe final correspondiente. Si cada area requiere algo adicional, lo vamos sumando en la pestaña de entregas.</div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-4">Cuanto tiempo tengo para entregar y cuanto tarda la correccion?</button>
-                        <div class="faq-answer" id="faq-4" hidden>La base actual conserva la referencia de 30 dias para subir el informe y hasta 30 dias habiles para la correccion docente, salvo indicaciones especificas posteriores.</div>
-                    </div>
-                </div>
-
-                <div class="faq-group">
-                    <h3>Consultas y tramites</h3>
-                    <div class="faq-item">
-                        <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-5">Que hago si necesito ayuda personalizada?</button>
-                        <div class="faq-answer" id="faq-5" hidden>Podes usar el bloque Mi Panel para la gestion y el correo de coordinacion para consultas individuales. Este FAQ queda listo para seguir sumando respuestas cada vez que aparezca una duda nueva.</div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-6">Puedo proponer una institucion propia?</button>
-                        <div class="faq-answer" id="faq-6" hidden>Si. La idea es dejar visible esa informacion en esta misma seccion y luego sumar los requisitos concretos del tramite y el acceso directo correspondiente.</div>
+                    <div id="faq-rich-content" class="faq-rich-content">
+                        <div class="faq-loading">Cargando guia completa...</div>
                     </div>
                 </div>
             </section>
@@ -325,22 +295,47 @@
             button.addEventListener("click", () => activateTab(button.dataset.goTab));
         });
 
-        function setupFaq() {
-            document.querySelectorAll(".faq-question").forEach((button) => {
-                button.addEventListener("click", () => {
-                    const answer = document.getElementById(button.getAttribute("aria-controls"));
-                    const isOpen = button.getAttribute("aria-expanded") === "true";
+        function toggleFaqSmooth(id) {
+            const content = document.getElementById("content-" + id);
+            const iconDiv = document.getElementById("icon-" + id);
+            if (!content || !iconDiv) return;
 
-                    document.querySelectorAll(".faq-question").forEach((otherButton) => {
-                        const otherAnswer = document.getElementById(otherButton.getAttribute("aria-controls"));
-                        otherButton.setAttribute("aria-expanded", "false");
-                        if (otherAnswer) otherAnswer.hidden = true;
-                    });
+            const iconSvg = iconDiv.querySelector("svg");
+            const isClosed = !content.style.maxHeight || content.style.maxHeight === "0px";
 
-                    button.setAttribute("aria-expanded", String(!isOpen));
-                    if (answer) answer.hidden = isOpen;
+            if (isClosed) {
+                document.querySelectorAll("[id^='content-faq-']").forEach((el) => {
+                    el.style.maxHeight = "0px";
+                    const otherIcon = document.getElementById(el.id.replace("content-", "icon-"));
+                    if (otherIcon) {
+                        otherIcon.style.backgroundColor = "#f1f5f9";
+                        otherIcon.style.transform = "rotate(0deg)";
+                        const otherSvg = otherIcon.querySelector("svg");
+                        if (otherSvg) otherSvg.style.stroke = "#64748b";
+                    }
                 });
-            });
+
+                content.style.maxHeight = content.scrollHeight + 50 + "px";
+                iconDiv.style.backgroundColor = "#4B8C7A";
+                iconDiv.style.transform = "rotate(180deg)";
+                if (iconSvg) iconSvg.style.stroke = "#ffffff";
+            } else {
+                content.style.maxHeight = "0px";
+                iconDiv.style.backgroundColor = "#f1f5f9";
+                iconDiv.style.transform = "rotate(0deg)";
+                if (iconSvg) iconSvg.style.stroke = "#64748b";
+            }
+        }
+
+        async function loadFaqContent() {
+            const container = document.getElementById("faq-rich-content");
+            try {
+                const response = await fetch("faq-content.html", { cache: "no-store" });
+                const html = await response.text();
+                container.innerHTML = html;
+            } catch (error) {
+                container.innerHTML = "<div class='faq-loading'>No se pudo cargar la guia completa.</div>";
+            }
         }
 
         function setupCopyMail(triggerId) {
@@ -363,7 +358,7 @@
             });
         }
 
-        setupFaq();
+        loadFaqContent();
         setupCopyMail("copy-mail-trigger");
         setupCopyMail("copy-mail-panel");
     </script>

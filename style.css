@@ -594,6 +594,42 @@ a {
     margin-bottom: 1.2rem;
 }
 
+.faq-rich-shell {
+    display: grid;
+    gap: 1rem;
+}
+
+.faq-rich-content {
+    border-radius: 28px;
+    overflow: hidden;
+}
+
+.faq-rich-content .container,
+.faq-rich-content .container-fluid {
+    width: 100%;
+}
+
+.faq-rich-content .my-5 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.faq-rich-content .px-lg-5,
+.faq-rich-content .px-lg-4 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.faq-loading {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    padding: 1.6rem;
+    color: #64748b;
+    text-align: center;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.03);
+}
+
 .faq-hero-card {
     margin-bottom: 1.2rem;
     border-radius: 28px;
