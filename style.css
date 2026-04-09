@@ -505,39 +505,38 @@ a {
 
 .downloads-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.1rem;
+    gap: 1.2rem;
 }
 
 .card-dl-sq {
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
-    min-height: 190px;
-    padding: 1.35rem 1.35rem 1rem;
+    gap: 0;
+    min-height: 250px;
+    padding: 2rem 1.8rem;
     background: #ffffff;
     border-radius: 24px;
-    border: 1px solid #edf2f7;
-    box-shadow: 0 16px 34px -24px rgba(15, 23, 42, 0.14);
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 4px 20px -5px rgba(15, 23, 42, 0.03);
     text-decoration: none;
-    transition: 0.3s ease;
-    overflow: hidden;
+    transition: 0.35s ease;
 }
 
 .card-dl-sq:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px -22px rgba(15, 23, 42, 0.16);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08);
 }
 
 .badge-new-sq {
     position: absolute;
-    top: 14px;
-    right: 14px;
+    top: 20px;
+    right: 20px;
     background: #ecfdf5;
     color: #059669;
     font-size: 0.65rem;
     font-weight: 800;
-    padding: 4px 8px;
+    padding: 4px 10px;
     border-radius: 99px;
     display: flex;
     align-items: center;
@@ -560,15 +559,21 @@ a {
 }
 
 .dl-icon-sq-box {
-    width: 42px;
-    height: 42px;
-    border-radius: 14px;
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.78rem;
-    font-weight: 900;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    margin-bottom: 1.5rem;
+    transition: transform 0.4s ease;
+}
+
+.dl-icon-sq-box svg {
+    width: 26px;
+    height: 26px;
+    stroke-width: 2;
+    transition: all 0.3s ease;
 }
 
 .t-excel .dl-icon-sq-box { background: #ecfdf5; color: #10b981; }
@@ -582,178 +587,104 @@ a {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-}
-
-.dl-card-head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 0.8rem;
-}
-
-.dl-visual {
-    position: relative;
-    width: 88px;
-    height: 72px;
-    border-radius: 16px;
-    background: linear-gradient(180deg, rgba(248,250,252,0.95), rgba(241,245,249,0.85));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    opacity: 0.8;
-}
-
-.dl-sheet {
-    width: 44px;
-    height: 54px;
-    border-radius: 12px;
-    background: #ffffff;
-    border: 1px solid rgba(148, 163, 184, 0.24);
-    box-shadow: 0 8px 14px -14px rgba(15, 23, 42, 0.2);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    padding: 0 9px;
-}
-
-.dl-sheet span {
+    margin-bottom: 0.5rem;
     display: block;
-    height: 5px;
-    border-radius: 999px;
-    background: #d7dee7;
-}
-
-.dl-sheet span:first-child {
-    width: 70%;
-}
-
-.dl-sheet span:nth-child(2) {
-    width: 88%;
-}
-
-.dl-sheet span:nth-child(3) {
-    width: 58%;
-}
-
-.dl-action-icon,
-.dl-check {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 0.95rem;
-    font-weight: 900;
-}
-
-.dl-lines {
-    position: absolute;
-    right: 8px;
-    top: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.dl-lines span {
-    display: block;
-    width: 20px;
-    height: 7px;
-    border-radius: 999px;
-    background: #cfe1f7;
-}
-
-.dl-stamp {
-    position: absolute;
-    right: 10px;
-    top: 12px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #cbd5e1;
-}
-
-.excel .dl-sheet span:first-child { background: #d4eee5; }
-.excel .dl-action-icon { background: #63c587; }
-
-.word .dl-sheet span:first-child { background: #d8ebfd; }
-.word .dl-lines span { background: #cfe1f7; }
-
-.pdf { background: linear-gradient(180deg, rgba(253,247,241,0.95), rgba(250,241,236,0.85)); }
-.pdf .dl-sheet span:first-child { background: #f2c07b; }
-.pdf .dl-check { background: #f08b2e; }
-
-.doc .dl-sheet span:first-child { background: #dfe5ee; }
-.doc .dl-stamp { background: #64748b; }
-
-.dl-copy {
-    display: grid;
-    gap: 0.28rem;
 }
 
 .dl-sq-title {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 1.3rem;
     font-weight: 800;
     color: #0f172a;
     letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
 }
 
 .dl-sq-desc {
     margin: 0;
     color: #64748b;
-    font-size: 0.84rem;
-    line-height: 1.45;
+    font-size: 1rem;
+    line-height: 1.55;
     flex-grow: 1;
 }
 
-.dl-link,
+.dl-sq-action {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dl-btn-mini {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: #f8fafc;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.dl-btn-mini svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+}
+
+.card-dl-sq:hover .dl-icon-sq-box {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.card-dl-sq:hover .dl-btn-mini svg {
+    transform: translateY(2px);
+}
+
+.t-excel:hover {
+    border-color: #a7f3d0;
+}
+
+.t-excel:hover .dl-btn-mini {
+    background: #10b981;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.t-word:hover {
+    border-color: #bfdbfe;
+}
+
+.t-word:hover .dl-btn-mini {
+    background: #3b82f6;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.t-pdf:hover {
+    border-color: #fecdd3;
+}
+
+.t-pdf:hover .dl-btn-mini {
+    background: #f43f5e;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(244, 63, 94, 0.3);
+}
+
+.t-doc:hover {
+    border-color: #cbd5e1;
+}
+
+.t-doc:hover .dl-btn-mini {
+    background: #475569;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(71, 85, 105, 0.3);
+}
+
 .area-card span,
 .panel-link {
     margin-top: auto;
     font-weight: 700;
-}
-
-.dl-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.8rem;
-    padding-top: 0.7rem;
-    border-top: 1px solid #eef2f7;
-    margin-top: auto;
-}
-
-.dl-link {
-    color: #1d4ed8;
-    font-size: 0.85rem;
-}
-
-.dl-arrow {
-    width: 28px;
-    height: 28px;
-    border-radius: 10px;
-    background: #f8fafc;
-    color: #64748b;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 0.85rem;
-    transition: 0.25s ease;
-}
-
-.card-dl-sq:hover .dl-arrow {
-    background: #0f172a;
-    color: #ffffff;
-    transform: translateX(2px);
 }
 
 .guide-card {
