@@ -5,7 +5,10 @@ html {
 body {
     margin: 0;
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: #ffffff;
+    background:
+        radial-gradient(circle at top left, rgba(75, 140, 122, 0.07), transparent 26%),
+        radial-gradient(circle at top right, rgba(14, 165, 233, 0.06), transparent 24%),
+        linear-gradient(180deg, #ffffff 0%, #fafcfd 60%, #f6f8fb 100%);
     color: #1e293b;
     overflow-x: hidden;
 }
@@ -21,12 +24,11 @@ a {
 
 .page-shell {
     width: 100%;
-    padding: 1.5rem 0.5rem 2rem;
-    background: #ffffff;
+    padding: 1.35rem 0.5rem 2.6rem;
 }
 
 .master-container {
-    max-width: 1140px;
+    max-width: 1160px;
     margin: 0 auto;
 }
 
@@ -38,6 +40,7 @@ a {
     margin-bottom: 1.6rem;
     box-shadow: 0 25px 50px -12px rgba(75, 140, 122, 0.2);
     border: 1px solid rgba(226, 232, 240, 0.8);
+    background: #f8fafc;
 }
 
 .hero-img {
@@ -111,12 +114,12 @@ a {
     gap: 0.8rem;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 1.6rem;
+    margin-bottom: 1.8rem;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.94);
+    background: rgba(255, 255, 255, 0.96);
     border: 1px solid #eef2f7;
     border-radius: 24px;
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.07);
     backdrop-filter: blur(12px);
 }
 
@@ -145,6 +148,7 @@ a {
 .tab-panel {
     display: none;
     animation: fadeUp 0.35s ease;
+    padding-bottom: 0.4rem;
 }
 
 .tab-panel.active {
@@ -230,13 +234,28 @@ a {
 .contact-footer {
     background: #ffffff;
     border: 1px solid #e2e8f0;
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 22px 46px -18px rgba(15, 23, 42, 0.09);
 }
 
 .roadmap-card {
     border-radius: 32px;
     padding: 3rem;
     margin-bottom: 2rem;
+}
+
+.section-header {
+    position: relative;
+    overflow: hidden;
+}
+
+.section-header::after {
+    content: "";
+    position: absolute;
+    inset: auto -50px -60px auto;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(75, 140, 122, 0.08), rgba(75, 140, 122, 0));
 }
 
 .roadmap-card h2,
@@ -326,7 +345,7 @@ a {
     overflow: hidden;
     transition: 0.35s ease;
     cursor: pointer;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 14px 30px -18px rgba(15, 23, 42, 0.14);
 }
 
 .r-card:hover {
@@ -402,6 +421,7 @@ a {
 .contact-footer:hover {
     transform: scale(1.01);
     border-color: #7c3aed;
+    box-shadow: 0 18px 36px -18px rgba(124, 58, 237, 0.18);
 }
 
 .contact-left {
@@ -592,6 +612,7 @@ a {
     border-radius: 24px;
     padding: 1.5rem 1.6rem;
     margin-bottom: 1.2rem;
+    background: linear-gradient(180deg, #ffffff, #fbfcfd);
 }
 
 .faq-rich-shell {
@@ -602,6 +623,7 @@ a {
 .faq-rich-content {
     border-radius: 28px;
     overflow: hidden;
+    box-shadow: 0 24px 50px -20px rgba(15, 23, 42, 0.1);
 }
 
 .faq-rich-content .container,
@@ -635,7 +657,7 @@ a {
     border-radius: 28px;
     overflow: hidden;
     border: 1px solid #e2e8f0;
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 22px 44px -18px rgba(15, 23, 42, 0.09);
 }
 
 .faq-hero-card img {
@@ -716,6 +738,7 @@ a {
     border-radius: 28px;
     padding: 1.6rem;
     margin-bottom: 1.4rem;
+    background: linear-gradient(180deg, #ffffff, #fbfcfd);
 }
 
 .delivery-step {
@@ -754,7 +777,7 @@ a {
     border-radius: 24px;
     padding: 2rem 1.6rem;
     border: 1px solid #f1f5f9;
-    box-shadow: 0 16px 36px -14px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 18px 38px -18px rgba(15, 23, 42, 0.12);
     transition: 0.3s ease;
 }
 
@@ -775,6 +798,7 @@ a {
     padding: 1.8rem;
     text-decoration: none;
     transition: 0.25s ease;
+    background: linear-gradient(180deg, #ffffff, #fcfcfd);
 }
 
 .panel-card:hover {
@@ -809,7 +833,7 @@ a {
     color: #ffffff;
     border-radius: 12px;
     font-weight: 700;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 18px 34px rgba(15, 23, 42, 0.18);
     opacity: 0;
     transform: translateY(10px);
     pointer-events: none;
