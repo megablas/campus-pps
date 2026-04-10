@@ -1087,66 +1087,150 @@ a {
     margin-bottom: 0.55rem;
 }
 
-.delivery-main-link {
+.delivery-area-pill {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 46px;
-    padding: 0.85rem 1.15rem;
-    border-radius: 14px;
-    text-decoration: none;
-    font-weight: 800;
+    min-height: 42px;
+    padding: 0.72rem 1rem;
+    border-radius: 999px;
+    font-weight: 900;
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     white-space: nowrap;
-    transition: 0.25s ease;
 }
 
-.theme-clinica .delivery-main-link {
-    background: #4b8c7a;
-    color: #ffffff;
+.theme-clinica .delivery-area-pill {
+    background: #ebf3f1;
+    color: #4b8c7a;
 }
 
-.theme-laboral .delivery-main-link {
-    background: #dc2626;
-    color: #ffffff;
+.theme-laboral .delivery-area-pill {
+    background: #fff1f2;
+    color: #dc2626;
 }
 
-.theme-educacional .delivery-main-link {
-    background: #2563eb;
-    color: #ffffff;
+.theme-educacional .delivery-area-pill {
+    background: #eff6ff;
+    color: #2563eb;
 }
 
-.delivery-main-link:hover {
-    transform: translateY(-2px);
-}
-
-.delivery-checklist {
+.delivery-task-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
 }
 
-.delivery-item {
+.delivery-task-card {
     border-radius: 22px;
-    padding: 1.35rem;
-    border: 1px solid #edf2f7;
+    padding: 1.4rem;
+    border: 1px solid #e6edf5;
     background: linear-gradient(180deg, #ffffff, #fbfcfd);
     box-shadow: 0 18px 34px -28px rgba(15, 23, 42, 0.16);
+    display: flex;
+    flex-direction: column;
+    min-height: 250px;
 }
 
-.delivery-item-label {
-    display: inline-block;
-    margin-bottom: 0.85rem;
-    color: #94a3b8;
+.delivery-task-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.delivery-task-type,
+.delivery-task-state {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
     font-size: 0.72rem;
     font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.4px;
 }
 
-.delivery-item h4 {
-    font-size: 1.15rem;
+.delivery-task-type {
+    background: #f8fafc;
+    color: #475569;
+}
+
+.delivery-task-state.waiting {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.delivery-task-state.soft {
+    background: #ecfeff;
+    color: #0f766e;
+}
+
+.delivery-task-state.alert {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.delivery-task-card h4 {
+    font-size: 1.18rem;
     font-weight: 800;
-    margin-bottom: 0.45rem;
+    margin: 0 0 0.55rem;
+    color: #0f172a;
+}
+
+.delivery-task-card p {
+    margin: 0;
+    color: #64748b;
+    line-height: 1.65;
+}
+
+.delivery-task-actions {
+    margin-top: auto;
+    padding-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid #edf2f7;
+}
+
+.delivery-task-hint {
+    color: #94a3b8;
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
+.delivery-task-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0.65rem 0.95rem;
+    border-radius: 14px;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 0.84rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.delivery-task-link.is-disabled {
+    background: #e2e8f0;
+    color: #64748b;
+}
+
+.theme-clinica .accent-card {
+    background: linear-gradient(180deg, #f8fdfb, #ffffff);
+}
+
+.theme-laboral .accent-card {
+    background: linear-gradient(180deg, #fff8f8, #ffffff);
+}
+
+.theme-educacional .accent-card {
+    background: linear-gradient(180deg, #f8fbff, #ffffff);
 }
 
 .panel-grid {
@@ -1219,7 +1303,7 @@ a {
     }
 
     .delivery-hero,
-    .delivery-checklist {
+    .delivery-task-grid {
         grid-template-columns: 1fr;
     }
 

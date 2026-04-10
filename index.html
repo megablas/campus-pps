@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
     <div class="page-shell">
@@ -242,13 +242,13 @@
 
                 <section class="delivery-hero">
                     <div class="delivery-hero-copy">
-                        <span class="delivery-eyebrow">Entrega ordenada</span>
-                        <h3>Elegi tu area y entra directo al espacio correcto</h3>
-                        <p>La logica nueva separa las entregas por orientacion para que sea mas facil ubicar cada PPS, cargar el informe y saber que documentacion acompana la entrega.</p>
+                        <span class="delivery-eyebrow">Entregas por area</span>
+                        <h3>Tu tablero de entregas dentro del campus</h3>
+                        <p>Ahora cada orientacion tiene su propia grilla de tarjetas. La idea es cargar aca los links reales de cada tarea para que entrar a la entrega sea directo, claro y mucho menos manual.</p>
                     </div>
                     <div class="delivery-hero-note">
-                        <strong>Recordatorio clave</strong>
-                        <p>Si no encontras el espacio de entrega de tu PPS, escribi a coordinacion para que se habilite manualmente en el area correspondiente.</p>
+                        <strong>Como lo vamos a usar</strong>
+                        <p>Cuando me pases el link de una tarea, la agrego como tarjeta en el area correspondiente. Si falta un espacio, tambien lo dejamos visible aca para pedir su habilitacion.</p>
                     </div>
                 </section>
 
@@ -263,27 +263,48 @@
                         <div class="delivery-area-head">
                             <div>
                                 <span class="delivery-area-kicker">Area Clinica</span>
-                                <h3>Informes clinicos y documentacion de practica</h3>
-                                <p>Para PPS vinculadas a dispositivos clinicos, salud mental, atencion y observacion institucional.</p>
+                                <h3>Entregas clinicas listas para publicar</h3>
+                                <p>Para PPS vinculadas a salud mental, dispositivos clinicos, atencion institucional y observacion profesional.</p>
                             </div>
-                            <a class="delivery-main-link" href="https://campus.uflo.edu.ar/course/view.php?id=3615&section=4#tabs-tree-start" target="_blank" rel="noopener noreferrer">Abrir area en Campus</a>
+                            <div class="delivery-area-pill">Tablero interno</div>
                         </div>
 
-                        <div class="delivery-checklist">
-                            <article class="delivery-item">
-                                <span class="delivery-item-label">Subida principal</span>
-                                <h4>Informe final de PPS</h4>
-                                <p>Subi el informe en la tarjeta o tarea correspondiente a tu practica clinica dentro del aula.</p>
+                        <div class="delivery-task-grid">
+                            <article class="delivery-task-card">
+                                <div class="delivery-task-meta">
+                                    <span class="delivery-task-type">Informe final</span>
+                                    <span class="delivery-task-state waiting">Link pendiente</span>
+                                </div>
+                                <h4>Entrega clinica principal</h4>
+                                <p>Este espacio queda listo para sumar la tarea real de la PPS clinica apenas me pases el enlace correspondiente.</p>
+                                <div class="delivery-task-actions">
+                                    <span class="delivery-task-hint">Pendiente de publicacion</span>
+                                    <span class="delivery-task-link is-disabled">Agregar link</span>
+                                </div>
                             </article>
-                            <article class="delivery-item">
-                                <span class="delivery-item-label">Adjunto recomendado</span>
-                                <h4>Planilla de asistencia</h4>
-                                <p>Si la practica fue presencial, carga tambien la planilla firmada junto al informe.</p>
+                            <article class="delivery-task-card">
+                                <div class="delivery-task-meta">
+                                    <span class="delivery-task-type">Adjunto</span>
+                                    <span class="delivery-task-state soft">Documento de apoyo</span>
+                                </div>
+                                <h4>Planilla y respaldo institucional</h4>
+                                <p>Reservado para subir la planilla de asistencia firmada u otros adjuntos que acompanen la entrega principal.</p>
+                                <div class="delivery-task-actions">
+                                    <span class="delivery-task-hint">Se suma segun la modalidad</span>
+                                    <span class="delivery-task-link is-disabled">Preparado</span>
+                                </div>
                             </article>
-                            <article class="delivery-item">
-                                <span class="delivery-item-label">Si algo falta</span>
-                                <h4>Habilitacion manual</h4>
-                                <p>Si no aparece tu espacio de entrega, avisa a coordinacion para habilitarlo en esta seccion.</p>
+                            <article class="delivery-task-card accent-card">
+                                <div class="delivery-task-meta">
+                                    <span class="delivery-task-type">Soporte</span>
+                                    <span class="delivery-task-state alert">Si falta la tarea</span>
+                                </div>
+                                <h4>Pedido de habilitacion manual</h4>
+                                <p>Si tu PPS no aparece en esta seccion, hay que avisar a coordinacion para habilitar el espacio correcto dentro del area clinica.</p>
+                                <div class="delivery-task-actions">
+                                    <span class="delivery-task-hint">Criterio activo del campus</span>
+                                    <span class="delivery-task-link is-disabled">Avisar a coordinacion</span>
+                                </div>
                             </article>
                         </div>
                     </section>
@@ -294,27 +315,48 @@
                         <div class="delivery-area-head">
                             <div>
                                 <span class="delivery-area-kicker">Laboral y Comunitaria</span>
-                                <h3>Entregas de organizaciones, empresas e intervencion social</h3>
-                                <p>Para PPS realizadas en contextos laborales, comunitarios, institucionales o de intervencion psicosocial.</p>
+                                <h3>Entregas de organizaciones e intervencion social</h3>
+                                <p>Para PPS realizadas en empresas, organizaciones, proyectos comunitarios y contextos de intervencion psicosocial.</p>
                             </div>
-                            <a class="delivery-main-link" href="https://campus.uflo.edu.ar/course/view.php?id=3615&section=5#tabs-tree-start" target="_blank" rel="noopener noreferrer">Abrir area en Campus</a>
+                            <div class="delivery-area-pill">Tablero interno</div>
                         </div>
 
-                        <div class="delivery-checklist">
-                            <article class="delivery-item">
-                                <span class="delivery-item-label">Subida principal</span>
-                                <h4>Informe final de PPS</h4>
-                                <p>Busca tu practica dentro del bloque de entregas del area y carga el informe final en ese espacio.</p>
+                        <div class="delivery-task-grid">
+                            <article class="delivery-task-card">
+                                <div class="delivery-task-meta">
+                                    <span class="delivery-task-type">Informe final</span>
+                                    <span class="delivery-task-state waiting">Link pendiente</span>
+                                </div>
+                                <h4>Entrega laboral o comunitaria</h4>
+                                <p>Tarjeta lista para vincular la tarea real de tu PPS en organizaciones, empresas o proyectos de intervencion social.</p>
+                                <div class="delivery-task-actions">
+                                    <span class="delivery-task-hint">Pendiente de publicacion</span>
+                                    <span class="delivery-task-link is-disabled">Agregar link</span>
+                                </div>
                             </article>
-                            <article class="delivery-item">
-                                <span class="delivery-item-label">Adjunto recomendado</span>
+                            <article class="delivery-task-card">
+                                <div class="delivery-task-meta">
+                                    <span class="delivery-task-type">Adjunto</span>
+                                    <span class="delivery-task-state soft">Documento de apoyo</span>
+                                </div>
                                 <h4>Asistencia o respaldo institucional</h4>
-                                <p>Adjunta la planilla firmada o el respaldo que corresponda segun la modalidad de la practica.</p>
+                                <p>Queda reservado para la planilla firmada o el comprobante institucional que acompanara la entrega principal.</p>
+                                <div class="delivery-task-actions">
+                                    <span class="delivery-task-hint">Se suma segun la practica</span>
+                                    <span class="delivery-task-link is-disabled">Preparado</span>
+                                </div>
                             </article>
-                            <article class="delivery-item">
-                                <span class="delivery-item-label">Si algo falta</span>
-                                <h4>Pedi revision del espacio</h4>
-                                <p>Si no ves el lugar de carga de tu PPS, escribi para que lo ubiquemos o habilitemos en esta area.</p>
+                            <article class="delivery-task-card accent-card">
+                                <div class="delivery-task-meta">
+                                    <span class="delivery-task-type">Soporte</span>
+                                    <span class="delivery-task-state alert">Si falta la tarea</span>
+                                </div>
+                                <h4>Revision del espacio de entrega</h4>
+                                <p>Si no ves tu PPS en esta grilla, se avisa a coordinacion para ubicarla o habilitarla manualmente en esta area.</p>
+                                <div class="delivery-task-actions">
+                                    <span class="delivery-task-hint">Control manual</span>
+                                    <span class="delivery-task-link is-disabled">Avisar a coordinacion</span>
+                                </div>
                             </article>
                         </div>
                     </section>
@@ -325,27 +367,48 @@
                         <div class="delivery-area-head">
                             <div>
                                 <span class="delivery-area-kicker">Area Educacional</span>
-                                <h3>Entregas de practicas en instituciones educativas</h3>
-                                <p>Para PPS de orientacion educacional, escolar, psicopedagogica y de acompanamiento en contextos de ensenanza.</p>
+                                <h3>Entregas en instituciones educativas</h3>
+                                <p>Para PPS de orientacion educacional, escolar, psicopedagogica y acompanamiento en contextos de ensenanza.</p>
                             </div>
-                            <a class="delivery-main-link" href="https://campus.uflo.edu.ar/course/view.php?id=3615&section=6#tabs-tree-start" target="_blank" rel="noopener noreferrer">Abrir area en Campus</a>
+                            <div class="delivery-area-pill">Tablero interno</div>
                         </div>
 
-                        <div class="delivery-checklist">
-                            <article class="delivery-item">
-                                <span class="delivery-item-label">Subida principal</span>
-                                <h4>Informe final de PPS</h4>
-                                <p>Selecciona el espacio de entrega correspondiente a tu practica educacional y subi alli el informe final.</p>
+                        <div class="delivery-task-grid">
+                            <article class="delivery-task-card">
+                                <div class="delivery-task-meta">
+                                    <span class="delivery-task-type">Informe final</span>
+                                    <span class="delivery-task-state waiting">Link pendiente</span>
+                                </div>
+                                <h4>Entrega educacional principal</h4>
+                                <p>Espacio listo para vincular la tarea real de la PPS educacional y centralizar la entrega dentro de esta misma vista.</p>
+                                <div class="delivery-task-actions">
+                                    <span class="delivery-task-hint">Pendiente de publicacion</span>
+                                    <span class="delivery-task-link is-disabled">Agregar link</span>
+                                </div>
                             </article>
-                            <article class="delivery-item">
-                                <span class="delivery-item-label">Adjunto recomendado</span>
+                            <article class="delivery-task-card">
+                                <div class="delivery-task-meta">
+                                    <span class="delivery-task-type">Adjunto</span>
+                                    <span class="delivery-task-state soft">Documento de apoyo</span>
+                                </div>
                                 <h4>Documentacion de respaldo</h4>
-                                <p>Inclui la planilla de asistencia u otra documentacion institucional cuando la practica lo requiera.</p>
+                                <p>Reservado para la planilla de asistencia o el archivo complementario que exija la institucion educativa.</p>
+                                <div class="delivery-task-actions">
+                                    <span class="delivery-task-hint">Complemento opcional</span>
+                                    <span class="delivery-task-link is-disabled">Preparado</span>
+                                </div>
                             </article>
-                            <article class="delivery-item">
-                                <span class="delivery-item-label">Si algo falta</span>
+                            <article class="delivery-task-card accent-card">
+                                <div class="delivery-task-meta">
+                                    <span class="delivery-task-type">Soporte</span>
+                                    <span class="delivery-task-state alert">Si falta la tarea</span>
+                                </div>
                                 <h4>Notificacion a coordinacion</h4>
-                                <p>Cuando no aparezca un espacio de entrega para tu PPS, avisa para que lo habilitemos manualmente.</p>
+                                <p>Si tu PPS todavia no tiene tarjeta de entrega en esta area, se informa para habilitarla manualmente y dejarla visible aca.</p>
+                                <div class="delivery-task-actions">
+                                    <span class="delivery-task-hint">Seguimiento manual</span>
+                                    <span class="delivery-task-link is-disabled">Avisar a coordinacion</span>
+                                </div>
                             </article>
                         </div>
                     </section>
