@@ -930,60 +930,224 @@ a {
     padding: 0 1.3rem 1.2rem;
 }
 
-.delivery-guide {
+.delivery-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(260px, 0.9fr);
+    gap: 1.2rem;
+    margin-bottom: 1.35rem;
+}
+
+.delivery-hero-copy,
+.delivery-hero-note,
+.delivery-area-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 22px 46px -18px rgba(15, 23, 42, 0.09);
+}
+
+.delivery-hero-copy {
+    padding: 2rem 2.1rem;
     border-radius: 28px;
-    padding: 1.6rem;
-    margin-bottom: 1.4rem;
-    background: linear-gradient(180deg, #ffffff, #fbfcfd);
+    background:
+        radial-gradient(circle at top right, rgba(75, 140, 122, 0.09), transparent 25%),
+        linear-gradient(180deg, #ffffff, #fbfcfd);
 }
 
-.delivery-step {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-    padding: 1rem 0;
-}
-
-.delivery-step + .delivery-step {
-    border-top: 1px solid #eef2f7;
-}
-
-.delivery-num {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    display: flex;
+.delivery-eyebrow,
+.delivery-area-kicker {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
+    padding: 0.42rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.delivery-eyebrow {
+    margin-bottom: 1rem;
     background: #ebf3f1;
     color: #4b8c7a;
+}
+
+.delivery-hero-copy h3,
+.delivery-area-head h3,
+.delivery-item h4 {
+    margin: 0;
+    color: #0f172a;
+    letter-spacing: -0.6px;
+}
+
+.delivery-hero-copy h3 {
+    font-size: 2rem;
     font-weight: 900;
-    font-size: 1.2rem;
-    flex-shrink: 0;
+    margin-bottom: 0.8rem;
 }
 
-.areas-grid {
-    grid-template-columns: repeat(3, 1fr);
+.delivery-hero-copy p,
+.delivery-hero-note p,
+.delivery-area-head p,
+.delivery-item p {
+    margin: 0;
+    color: #64748b;
+    line-height: 1.65;
 }
 
-.area-card {
-    display: block;
-    text-decoration: none;
-    background: #ffffff;
+.delivery-hero-note {
+    padding: 1.6rem;
     border-radius: 24px;
-    padding: 2rem 1.6rem;
-    border: 1px solid #f1f5f9;
-    box-shadow: 0 18px 38px -18px rgba(15, 23, 42, 0.12);
-    transition: 0.3s ease;
+    align-self: stretch;
+    background: linear-gradient(180deg, #fffdf8, #ffffff);
 }
 
-.area-card:hover {
-    transform: translateY(-8px);
+.delivery-hero-note strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #b45309;
+    font-size: 0.94rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
 }
 
-.teal-line { border-top: 4px solid #4b8c7a; }
-.red-line { border-top: 4px solid #f26b6b; }
-.blue-line { border-top: 4px solid #0ea5e9; }
+.delivery-subtabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.3rem;
+    padding: 0.35rem;
+}
+
+.delivery-tab-btn {
+    min-height: 44px;
+    padding: 0.75rem 1.15rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #64748b;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.delivery-tab-btn:hover,
+.delivery-tab-btn.active {
+    background: #0f172a;
+    border-color: #0f172a;
+    color: #ffffff;
+    box-shadow: 0 16px 28px -18px rgba(15, 23, 42, 0.5);
+}
+
+.delivery-area-panel {
+    display: none;
+}
+
+.delivery-area-panel.active {
+    display: block;
+    animation: fadeUp 0.3s ease;
+}
+
+.delivery-area-card {
+    border-radius: 30px;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.delivery-area-head {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.delivery-area-kicker {
+    margin-bottom: 0.9rem;
+}
+
+.theme-clinica .delivery-area-kicker {
+    background: #ebf3f1;
+    color: #4b8c7a;
+}
+
+.theme-laboral .delivery-area-kicker {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.theme-educacional .delivery-area-kicker {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.delivery-area-head h3 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    margin-bottom: 0.55rem;
+}
+
+.delivery-main-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0.85rem 1.15rem;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 800;
+    white-space: nowrap;
+    transition: 0.25s ease;
+}
+
+.theme-clinica .delivery-main-link {
+    background: #4b8c7a;
+    color: #ffffff;
+}
+
+.theme-laboral .delivery-main-link {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+.theme-educacional .delivery-main-link {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.delivery-main-link:hover {
+    transform: translateY(-2px);
+}
+
+.delivery-checklist {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.delivery-item {
+    border-radius: 22px;
+    padding: 1.35rem;
+    border: 1px solid #edf2f7;
+    background: linear-gradient(180deg, #ffffff, #fbfcfd);
+    box-shadow: 0 18px 34px -28px rgba(15, 23, 42, 0.16);
+}
+
+.delivery-item-label {
+    display: inline-block;
+    margin-bottom: 0.85rem;
+    color: #94a3b8;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.delivery-item h4 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 0.45rem;
+}
 
 .panel-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1054,6 +1218,15 @@ a {
         padding-right: 100px;
     }
 
+    .delivery-hero,
+    .delivery-checklist {
+        grid-template-columns: 1fr;
+    }
+
+    .delivery-area-head {
+        flex-direction: column;
+    }
+
     .faq-guide-panel {
         padding: 1.45rem !important;
     }
@@ -1114,6 +1287,17 @@ a {
     .guide-card {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .delivery-hero-copy,
+    .delivery-hero-note,
+    .delivery-area-card {
+        padding: 1.35rem;
+    }
+
+    .delivery-hero-copy h3,
+    .delivery-area-head h3 {
+        font-size: 1.55rem;
     }
 
     .r-card {
